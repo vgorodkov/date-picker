@@ -1,9 +1,9 @@
 import React, { ImgHTMLAttributes } from 'react';
 
-import styles from './styles.module.scss';
+import { StyledIcon } from './styled';
 
 interface IconProps extends ImgHTMLAttributes<HTMLImageElement> {}
 
-export const Icon = ({ ...props }: IconProps) => {
-  return <img {...props} className={styles.icon} alt="icon" />;
+export const Icon: React.FC<IconProps> = ({ ...props }) => {
+  return <StyledIcon {...props} alt="icon" />;
 };

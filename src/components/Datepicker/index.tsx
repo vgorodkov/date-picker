@@ -11,7 +11,7 @@ import { getTimestampByDate } from '@/utils/getTimestampByDate';
 
 import { Date } from '../Date';
 import { Icon } from '../Icon';
-import styles from './styles.module.scss';
+import { DatepickerContainer, DatepickerTitle, FlexContainer } from './styled';
 import { DatepickerProps } from './types';
 
 export const Datepicker = ({ month = CURRENT_MONTH, year = CURRENT_YEAR }: DatepickerProps) => {
@@ -38,20 +38,20 @@ export const Datepicker = ({ month = CURRENT_MONTH, year = CURRENT_YEAR }: Datep
   };
 
   return (
-    <div className={styles.calendarContainer}>
-      <div className={styles.calendarHeader}>
+    <DatepickerContainer>
+      <FlexContainer $justifyContent="space-between">
         <Icon onClick={selectPrevMonth} src={prevSvg} alt="prev" title="prev month" />
-        <p className={styles.calendarHeaderTitle}>
+        <DatepickerTitle>
           {monthName} {selectedYear}
-        </p>
+        </DatepickerTitle>
         <Icon onClick={selectNextMonth} src={nextSvg} alt="next" title="next month" />
-      </div>
-      <div className={styles.weekdaysContainer}>
+      </FlexContainer>
+      <FlexContainer>
         {WEEK_DAYS.map((weekday) => (
           <Date variant={DateVariant.WEEKDAY} date={{ day: weekday }} />
         ))}
-      </div>
-      <div className={styles.datepickerContainer}>
+      </FlexContainer>
+      <FlexContainer>
         {monthDates.map((date) => (
           <Date
             selected={
@@ -62,7 +62,7 @@ export const Datepicker = ({ month = CURRENT_MONTH, year = CURRENT_YEAR }: Datep
             variant={date.month === selectedMonth ? DateVariant.DEFAULT : DateVariant.DISABLED}
           />
         ))}
-      </div>
-    </div>
+      </FlexContainer>
+    </DatepickerContainer>
   );
 };
