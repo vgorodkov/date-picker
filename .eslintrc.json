@@ -50,6 +50,12 @@
         "devDependencies": ["**/*.stories.*", "**/.storybook/**/*.*"],
         "peerDependencies": true
       }
+    ],
+    "react/jsx-props-no-spreading": [
+      "error",
+      {
+        "exceptions": ["img"]
+      }
     ]
   }
 }
