@@ -1,0 +1,32 @@
+.calendarContainer {
+  width: 250px;
+  border: 1px solid #e1e1e1;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.weekdaysContainer {
+  display: flex;
+}
+
+.datepickerContainer {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.calendarHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.calendarHeaderTitle {
+  font-size: 14px;
+  color: black;
+  font-weight: 900;
+}
+
+.icon {
+  width: 16px;
+  height: 16px;
+}
