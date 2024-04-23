@@ -4,7 +4,8 @@ export const CURRENT_YEAR = new Date().getFullYear();
 
 export const CURRENT_MONTH = new Date().getMonth() + 1;
 
-export const WEEK_DAYS = ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'];
+export const WEEK_DAYS_FROM_SUNDAY = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
+export const WEEK_DAYS_FROM_MONDAY = ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'];
 
 export const MONTHS = [
   'January',
