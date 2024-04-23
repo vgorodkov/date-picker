@@ -1,4 +1,3 @@
 export interface DatepickerProps {
-  month: number;
-  year: number;
+  firstDayOfWeek: 'monday' | 'sunday';
 }
