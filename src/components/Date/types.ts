@@ -1,11 +1,8 @@
-import { DateVariant } from '@/types/date';
+import { DateVariant, MonthDate, Weekday } from '@/types/date';
 
 export interface DateProps {
-  date: {
-    day: number | string;
-    year?: number;
-    month?: number;
-  };
+  date: MonthDate | Weekday;
   variant?: DateVariant;
-  selected?: boolean;
+  isSelected?: boolean;
+  selectDate?: (date: MonthDate) => void;
 }
