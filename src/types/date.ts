@@ -8,5 +8,9 @@ export interface MonthDate {
   day: number;
   month: number;
   year: number;
-  timestamp: number;
+  timestamp?: number;
+}
+
+export interface Weekday {
+  day: string;
 }
