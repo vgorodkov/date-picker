@@ -8,7 +8,12 @@ import { formatInputDate } from '@/utils/formatInputDate';
 import { Calendar } from '../Calendar';
 import { DateInput } from '../DateInput';
 
-export const Datepicker = ({ firstDayOfWeek, showHolidays }: PickerProps) => {
+export const Datepicker = ({
+  firstDayOfWeek,
+  showHolidays,
+  holidayTimestamps,
+  addTodo,
+}: PickerProps) => {
   const [date, selectDate] = useState<null | MonthDate>(null);
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
 
@@ -23,6 +28,9 @@ export const Datepicker = ({ firstDayOfWeek, showHolidays }: PickerProps) => {
   const handleDateSelection = (selectedDate: MonthDate) => {
     selectDate(selectedDate);
     setIsCalendarOpen(false);
+    if (addTodo) {
+      addTodo(selectedDate);
+    }
   };
 
   return (
@@ -39,10 +47,13 @@ export const Datepicker = ({ firstDayOfWeek, showHolidays }: PickerProps) => {
       {isCalendarOpen && (
         <RelativeContainer>
           <Calendar
+            month={date?.month}
+            year={date?.year}
             firstDayOfWeek={firstDayOfWeek}
             selectedDate={date}
             onDateClick={handleDateSelection}
             showHolidays={showHolidays}
+            holidayTimestamps={holidayTimestamps}
           />
         </RelativeContainer>
       )}

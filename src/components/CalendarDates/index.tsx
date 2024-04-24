@@ -14,6 +14,7 @@ export const CalendarDates = ({
   firstDayOfWeek,
   range,
   showHolidays,
+  holidayTimestamps,
 }: CalendarDatesProps) => {
   const monthDates = getMonthDates(calendarYear, calendarMonth, firstDayOfWeek);
 
@@ -42,6 +43,9 @@ export const CalendarDates = ({
 
     if (showHolidays && timestamp) {
       const dayIndex = new Date(timestamp).getDay();
+      if (holidayTimestamps?.includes(timestamp)) {
+        return DateVariant.HOLIDAY;
+      }
       if (dayIndex === 6 || dayIndex === 0) {
         return DateVariant.HOLIDAY;
       }

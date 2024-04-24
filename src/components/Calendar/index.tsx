@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 
 import { CalendarDates } from '@/components/CalendarDates';
 import { CalendarHeader } from '@/components/CalendarHeader';
@@ -14,9 +14,12 @@ export const Calendar = ({
   firstDayOfWeek = FirstWeekDay.MONDAY,
   range,
   showHolidays = false,
+  holidayTimestamps,
+  month = CURRENT_MONTH,
+  year = CURRENT_YEAR,
 }: CalendarProps) => {
-  const [calendarMonth, setCalendarMonth] = useState(CURRENT_MONTH);
-  const [calendarYear, setCalendarYear] = useState(CURRENT_YEAR);
+  const [calendarMonth, setCalendarMonth] = useState(month);
+  const [calendarYear, setCalendarYear] = useState(year);
 
   const calendarMonthName = useMemo(
     () => (calendarMonth === 0 ? MONTHS[calendarMonth] : MONTHS[calendarMonth - 1]),
@@ -56,6 +59,7 @@ export const Calendar = ({
         selectedDate={selectedDate}
         range={range}
         showHolidays={showHolidays}
+        holidayTimestamps={holidayTimestamps}
       />
     </CalendarContainer>
   );

@@ -6,4 +6,7 @@ export interface CalendarProps {
   firstDayOfWeek?: FirstWeekDay;
   range?: Range;
   showHolidays?: boolean;
+  holidayTimestamps?: number[];
+  month?: number;
+  year?: number;
 }
