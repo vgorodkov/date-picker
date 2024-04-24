@@ -1,1 +1,1 @@
-export * from './components/Calendar';
+export { DatepickerService } from '@/services';
