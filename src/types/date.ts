@@ -2,6 +2,23 @@ export enum DateVariant {
   DEFAULT = 'default',
   DISABLED = 'disabled',
   WEEKDAY = 'weekday',
+  HOLIDAY = 'holiday',
+}
+
+export enum RangeVariant {
+  START = 'start',
+  INBETWEEN = 'inbetween',
+  END = 'end',
+}
+
+export enum FirstWeekDay {
+  MONDAY = 'Mo',
+  SUNDAY = 'Su',
+}
+
+export interface PickerProps {
+  firstDayOfWeek?: FirstWeekDay;
+  showHolidays?: boolean;
 }
 
 export interface MonthDate {
@@ -13,4 +30,9 @@ export interface MonthDate {
 
 export interface Weekday {
   day: string;
+}
+
+export interface Range {
+  start: number | null;
+  end: number | null;
 }
