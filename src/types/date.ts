@@ -19,6 +19,8 @@ export enum FirstWeekDay {
 export interface PickerProps {
   firstDayOfWeek?: FirstWeekDay;
   showHolidays?: boolean;
+  holidayTimestamps?: number[];
+  addTodo?: (date: MonthDate) => void;
 }
 
 export interface MonthDate {
