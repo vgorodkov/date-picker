@@ -1,8 +1,6 @@
-import React from 'react';
-
-import { Date } from '@/components/Date';
-import { FlexContainer } from '@/styles/common';
-import { DateVariant, MonthDate } from '@/types/date';
+import { CalendarDate } from '@/components/CalendarDate';
+import { GridContainer } from '@/styles/common';
+import { DateVariant, MonthDate, RangeVariant } from '@/types/date';
 import { getMonthDates } from '@/utils/getMonthDates';
 import { getTimestampByDate } from '@/utils/getTimestampByDate';
 
@@ -11,9 +9,11 @@ import { CalendarDatesProps } from './types';
 export const CalendarDates = ({
   calendarMonth,
   calendarYear,
-  selectDate,
+  onDateClick,
   selectedDate,
   firstDayOfWeek,
+  range,
+  showHolidays,
 }: CalendarDatesProps) => {
   const monthDates = getMonthDates(calendarYear, calendarMonth, firstDayOfWeek);
 
@@ -24,16 +24,43 @@ export const CalendarDates = ({
     return false;
   };
 
+  const getRangeVariant = (date: MonthDate) => {
+    if (!range) return undefined;
+
+    const { start, end } = range;
+    const timestamp = getTimestampByDate(date);
+
+    if (start && timestamp === start) return RangeVariant.START;
+    if (end && timestamp === end) return RangeVariant.END;
+    if (start && end && timestamp > start && timestamp < end) return RangeVariant.INBETWEEN;
+
+    return undefined;
+  };
+
+  const getDayVariant = (date: MonthDate) => {
+    const { timestamp, month } = date;
+
+    if (showHolidays && timestamp) {
+      const dayIndex = new Date(timestamp).getDay();
+      if (dayIndex === 6 || dayIndex === 0) {
+        return DateVariant.HOLIDAY;
+      }
+    }
+
+    return month === calendarMonth ? DateVariant.DEFAULT : DateVariant.DISABLED;
+  };
+
   return (
-    <FlexContainer>
+    <GridContainer>
       {monthDates.map((date) => (
-        <Date
-          selectDate={selectDate}
+        <CalendarDate
+          onDateClick={onDateClick}
           isSelected={isDateSelected(date)}
           date={date}
-          variant={date.month === calendarMonth ? DateVariant.DEFAULT : DateVariant.DISABLED}
+          variant={getDayVariant(date)}
+          rangeVariant={getRangeVariant(date)}
         />
       ))}
-    </FlexContainer>
+    </GridContainer>
   );
 };
