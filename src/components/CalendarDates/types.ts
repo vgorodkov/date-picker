@@ -8,4 +8,5 @@ export interface CalendarDatesProps {
   firstDayOfWeek: FirstWeekDay;
   range?: Range;
   showHolidays?: boolean;
+  holidayTimestamps?: number[];
 }
