@@ -1,9 +1,11 @@
-import { MonthDate } from '@/types/date';
+import { FirstWeekDay, MonthDate, Range } from '@/types/date';
 
 export interface CalendarDatesProps {
   calendarYear: number;
   calendarMonth: number;
-  selectDate: (date: MonthDate) => void;
-  selectedDate: MonthDate | null;
-  firstDayOfWeek: 'monday' | 'sunday';
+  onDateClick?: (date: MonthDate) => void;
+  selectedDate?: MonthDate | null;
+  firstDayOfWeek: FirstWeekDay;
+  range?: Range;
+  showHolidays?: boolean;
 }
