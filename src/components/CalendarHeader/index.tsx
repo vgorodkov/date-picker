@@ -1,12 +1,11 @@
-import React from 'react';
-
 import nextSvg from '@/assets/icons/next.svg';
 import prevSvg from '@/assets/icons/prev.svg';
-import { Date } from '@/components/Date';
+import { CalendarDate } from '@/components/CalendarDate';
 import { Icon } from '@/components/Icon';
-import { WEEK_DAYS_FROM_MONDAY, WEEK_DAYS_FROM_SUNDAY } from '@/constants/dates';
-import { FlexContainer } from '@/styles/common';
+import { FlexContainer, GridContainer } from '@/styles/common';
+import { spacing } from '@/styles/spacing';
 import { DateVariant } from '@/types/date';
+import { getWeekDays } from '@/utils/getWeekDays';
 
 import { DatepickerTitle } from './styled';
 import { CalendarHeaderProps } from './types';
@@ -19,7 +18,7 @@ export const CalendarHeader = ({
   firstDayOfWeek,
 }: CalendarHeaderProps) => {
   return (
-    <FlexContainer $flexFlow="column nowrap" $alignItems="space-between" $gap={4}>
+    <FlexContainer $flexFlow="column nowrap" $alignItems="space-between" $gap={spacing.xs}>
       <FlexContainer $justifyContent="space-between">
         <Icon onClick={selectPrevMonth} src={prevSvg} alt="prev" title="prev month" />
         <DatepickerTitle>
@@ -27,13 +26,11 @@ export const CalendarHeader = ({
         </DatepickerTitle>
         <Icon onClick={selectNextMonth} src={nextSvg} alt="next" title="next month" />
       </FlexContainer>
-      <FlexContainer>
-        {(firstDayOfWeek === 'monday' ? WEEK_DAYS_FROM_MONDAY : WEEK_DAYS_FROM_SUNDAY).map(
-          (weekday) => (
-            <Date variant={DateVariant.WEEKDAY} date={{ day: weekday }} />
-          )
-        )}
-      </FlexContainer>
+      <GridContainer>
+        {getWeekDays(firstDayOfWeek).map((weekday) => (
+          <CalendarDate variant={DateVariant.WEEKDAY} date={{ day: weekday }} />
+        ))}
+      </GridContainer>
     </FlexContainer>
   );
 };
