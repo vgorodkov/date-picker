@@ -4,12 +4,21 @@ export const FlexContainer = styled.div<{
   $alignItems?: string;
   $justifyContent?: string;
   $flexFlow?: string;
-  $gap?: number;
+  $gap?: string;
 }>`
   display: flex;
-  position: relative;
-  align-items: ${(props) => props.$alignItems || 'center'};
-  justify-content: ${(props) => props.$justifyContent || 'center'};
+  align-items: ${(props) => props.$alignItems || 'stretch'};
+  justify-content: ${(props) => props.$justifyContent || 'flex-start'};
   flex-flow: ${(props) => props.$flexFlow || 'row wrap'};
-  gap: ${(props) => `${props.$gap}px` || 0};
+  gap: ${(props) => props.$gap || 0};
+`;
+
+export const RelativeContainer = styled.div`
+  position: relative;
+  width: 100%;
+`;
+
+export const GridContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
 `;
