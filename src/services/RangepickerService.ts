@@ -1,6 +1,6 @@
 import { Rangepicker } from '@/components/Rangepicker';
 
-export class DatepickerService {
+export class RangepickerService {
   private rangePicker;
 
   constructor() {
