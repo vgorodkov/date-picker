@@ -1,24 +1,19 @@
-import React, { InputHTMLAttributes } from 'react';
-
 import calendarIcon from '@/assets/icons/calendar.svg';
 import clearIcon from '@/assets/icons/clear.svg';
+import { Icon } from '@/components/Icon';
 import { FlexContainer } from '@/styles/common';
+import { spacing } from '@/styles/spacing';
 
-import { Icon } from '../Icon';
 import { InputContainer, InputLabel, StyledInput } from './styled';
+import { DateInputProps } from './types';
 
-interface DateInputProps extends InputHTMLAttributes<HTMLInputElement> {
-  resetDate: () => void;
-}
-
-export const DateInput = ({ title, resetDate, ...props }: DateInputProps) => {
+export const DateInput = ({ isSelected, title, resetDate, ...props }: DateInputProps) => {
   return (
-    <FlexContainer $flexFlow="column nowrap" $alignItems="flex-start" $gap={8}>
+    <FlexContainer $flexFlow="column nowrap" $gap={spacing.s}>
       <InputLabel>{title}</InputLabel>
-      <InputContainer>
+      <InputContainer $isSelected={isSelected}>
         <Icon src={calendarIcon} />
         <StyledInput type="text" {...props} />
-
         <Icon src={clearIcon} onClick={resetDate} />
       </InputContainer>
     </FlexContainer>

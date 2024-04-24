@@ -1,5 +1,6 @@
 import { InputHTMLAttributes } from 'react';
 
-export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
-  title: string;
+export interface DateInputProps extends InputHTMLAttributes<HTMLInputElement> {
+  resetDate: () => void;
+  isSelected?: boolean;
 }
