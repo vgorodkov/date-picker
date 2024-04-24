@@ -1,21 +1,19 @@
-import '@/global.css';
+import { useState } from 'react';
 
-import React, { useState } from 'react';
-
-import { MonthDate } from '@/types/date';
+import { RelativeContainer } from '@/styles/common';
+import { GlobalStyle } from '@/styles/global';
+import { MonthDate, PickerProps } from '@/types/date';
 import { formatInputDate } from '@/utils/formatInputDate';
 
 import { Calendar } from '../Calendar';
 import { DateInput } from '../DateInput';
-import { CalendarContainer } from './styled';
-import { DatepickerProps } from './types';
 
-export const Datepicker = ({ firstDayOfWeek }: DatepickerProps) => {
+export const Datepicker = ({ firstDayOfWeek, showHolidays }: PickerProps) => {
   const [date, selectDate] = useState<null | MonthDate>(null);
-  const [isDatepickerShown, setIsDatepickerShown] = useState(false);
+  const [isCalendarOpen, setIsCalendarOpen] = useState(false);
 
-  const openDatepicker = () => {
-    setIsDatepickerShown(true);
+  const openCalendar = () => {
+    setIsCalendarOpen(true);
   };
 
   const resetDate = () => {
@@ -24,27 +22,30 @@ export const Datepicker = ({ firstDayOfWeek }: DatepickerProps) => {
 
   const handleDateSelection = (selectedDate: MonthDate) => {
     selectDate(selectedDate);
-    setIsDatepickerShown(false);
+    setIsCalendarOpen(false);
   };
 
   return (
     <>
+      <GlobalStyle />
       <DateInput
+        isSelected={isCalendarOpen}
         resetDate={resetDate}
-        onClick={openDatepicker}
+        onClick={openCalendar}
         title="Date"
         placeholder="Choose date"
         value={formatInputDate(date)}
       />
-      <CalendarContainer>
-        {isDatepickerShown && (
+      {isCalendarOpen && (
+        <RelativeContainer>
           <Calendar
             firstDayOfWeek={firstDayOfWeek}
             selectedDate={date}
-            selectDate={handleDateSelection}
+            onDateClick={handleDateSelection}
+            showHolidays={showHolidays}
           />
-        )}
-      </CalendarContainer>
+        </RelativeContainer>
+      )}
     </>
   );
 };
