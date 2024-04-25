@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import { Rangepicker } from '@/components/Rangepicker';
-import { FirstWeekDay } from '@/types/date';
 
 const meta = {
   title: 'Rangepicker',
@@ -16,7 +15,8 @@ type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {
   args: {
-    firstDayOfWeek: FirstWeekDay.MONDAY,
+    firstDayOfWeek: 'Mo',
     showHolidays: true,
+    calendarVariant: 'month',
   },
 };
