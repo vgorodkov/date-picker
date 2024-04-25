@@ -1,18 +1,18 @@
 import { useState } from 'react';
 
+import { Calendar } from '@/components/Calendar';
+import { DateInput } from '@/components/DateInput';
 import { RelativeContainer } from '@/styles/common';
 import { GlobalStyle } from '@/styles/global';
 import { MonthDate, PickerProps } from '@/types/date';
 import { formatInputDate } from '@/utils/formatInputDate';
-
-import { Calendar } from '../Calendar';
-import { DateInput } from '../DateInput';
 
 export const Datepicker = ({
   firstDayOfWeek,
   showHolidays,
   holidayTimestamps,
   addTodo,
+  calendarVariant,
 }: PickerProps) => {
   const [date, selectDate] = useState<null | MonthDate>(null);
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
@@ -25,7 +25,7 @@ export const Datepicker = ({
     selectDate(null);
   };
 
-  const handleDateSelection = (selectedDate: MonthDate) => {
+  const onDateClick = (selectedDate: MonthDate) => {
     selectDate(selectedDate);
     setIsCalendarOpen(false);
     if (addTodo) {
@@ -47,13 +47,12 @@ export const Datepicker = ({
       {isCalendarOpen && (
         <RelativeContainer>
           <Calendar
-            month={date?.month}
-            year={date?.year}
             firstDayOfWeek={firstDayOfWeek}
             selectedDate={date}
-            onDateClick={handleDateSelection}
+            onDateClick={onDateClick}
             showHolidays={showHolidays}
             holidayTimestamps={holidayTimestamps}
+            calendarVariant={calendarVariant}
           />
         </RelativeContainer>
       )}

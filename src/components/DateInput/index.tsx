@@ -1,8 +1,8 @@
 import calendarIcon from '@/assets/icons/calendar.svg';
 import clearIcon from '@/assets/icons/clear.svg';
-import { Icon } from '@/components/Icon';
+import { Icon } from '@/components/UI/Icon';
+import { spacing } from '@/constants/spacing';
 import { FlexContainer } from '@/styles/common';
-import { spacing } from '@/styles/spacing';
 
 import { InputContainer, InputLabel, StyledInput } from './styled';
 import { DateInputProps } from './types';

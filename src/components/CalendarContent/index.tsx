@@ -1,23 +1,19 @@
 import { CalendarDate } from '@/components/CalendarDate';
 import { GridContainer } from '@/styles/common';
 import { DateVariant, MonthDate, RangeVariant } from '@/types/date';
-import { getMonthDates } from '@/utils/getMonthDates';
 import { getTimestampByDate } from '@/utils/getTimestampByDate';
 
-import { CalendarDatesProps } from './types';
+import { CalendarContentProps } from './types';
 
-export const CalendarDates = ({
+export const CalendarContent = ({
   calendarMonth,
-  calendarYear,
   onDateClick,
   selectedDate,
-  firstDayOfWeek,
   range,
   showHolidays,
   holidayTimestamps = [],
-}: CalendarDatesProps) => {
-  const monthDates = getMonthDates(calendarYear, calendarMonth, firstDayOfWeek);
-
+  dates,
+}: CalendarContentProps) => {
   const isDateSelected = (date: MonthDate) => {
     if (selectedDate) {
       return getTimestampByDate(date) === getTimestampByDate(selectedDate);
@@ -56,7 +52,7 @@ export const CalendarDates = ({
 
   return (
     <GridContainer>
-      {monthDates.map((date) => (
+      {dates.map((date) => (
         <CalendarDate
           onDateClick={onDateClick}
           isSelected={isDateSelected(date)}

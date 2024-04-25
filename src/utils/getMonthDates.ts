@@ -12,11 +12,7 @@ export const getMonthDates = (year: number, month: number, firstDayOfWeek: First
   const lastDayInPrevMonth = new Date(year, Math.max(month - 1, 0), 0).getDate();
   const restFromPrevMonth = firstDayInMonth === 0 ? weekDays.length - 1 : firstDayInMonth - 1;
 
-  for (
-    let i = restFromPrevMonth - (firstDayOfWeek === FirstWeekDay.MONDAY ? 1 : 0);
-    i >= 0;
-    i -= 1
-  ) {
+  for (let i = restFromPrevMonth - (firstDayOfWeek === 'Mo' ? 1 : 0); i >= 0; i -= 1) {
     const date = {
       day: lastDayInPrevMonth - i,
       month: month === 1 ? MONTHS.length : month - 1,

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
-import { colors } from '@/styles/colors';
-import { spacing } from '@/styles/spacing';
+import { colors } from '@/constants/colors';
+import { spacing } from '@/constants/spacing';
 
 export const InputLabel = styled.div`
   font-size: 15px;

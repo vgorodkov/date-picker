@@ -1,60 +1,71 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useReducer } from 'react';
 
-import { CalendarDates } from '@/components/CalendarDates';
+import { CalendarContent } from '@/components/CalendarContent';
 import { CalendarHeader } from '@/components/CalendarHeader';
-import { CURRENT_MONTH, CURRENT_YEAR, MONTHS } from '@/constants/dates';
-import { FirstWeekDay } from '@/types/date';
+import { CURRENT_DAY, CURRENT_MONTH, CURRENT_YEAR, MONTHS } from '@/constants/dates';
+import { getMonthDates } from '@/utils/getMonthDates';
+import { geetWeekDatesByWeekIndex } from '@/utils/getWeekDates';
 
+import { calendarReducer, initialState } from './reducer';
 import { CalendarContainer } from './styled';
 import { CalendarProps } from './types';
 
 export const Calendar = ({
-  selectedDate,
+  selectedDate = {
+    day: CURRENT_DAY,
+    month: CURRENT_MONTH,
+    year: CURRENT_YEAR,
+  },
   onDateClick,
-  firstDayOfWeek = FirstWeekDay.MONDAY,
+  firstDayOfWeek = 'Mo',
   range,
   showHolidays = false,
   holidayTimestamps,
-  month = CURRENT_MONTH,
-  year = CURRENT_YEAR,
+  calendarVariant,
 }: CalendarProps) => {
-  const [calendarMonth, setCalendarMonth] = useState(month);
-  const [calendarYear, setCalendarYear] = useState(year);
+  const [{ calendarMonth, calendarYear, weekIndex }, dispatch] = useReducer(
+    calendarReducer,
+    initialState
+  );
+
+  const isWeekMode = calendarVariant === 'week';
+
+  const monthDates = getMonthDates(calendarYear, calendarMonth, firstDayOfWeek);
+  const dates = isWeekMode ? geetWeekDatesByWeekIndex(monthDates, weekIndex) : monthDates;
 
   const calendarMonthName = useMemo(
     () => (calendarMonth === 0 ? MONTHS[calendarMonth] : MONTHS[calendarMonth - 1]),
     [calendarMonth]
   );
 
-  const selectNextMonth = () => {
-    const isLastMonth = calendarMonth === MONTHS.length;
-    const nextMonth = isLastMonth ? 1 : calendarMonth + 1;
-    const nextYear = isLastMonth ? calendarYear + 1 : calendarYear;
-    setCalendarMonth(nextMonth);
-    setCalendarYear(nextYear);
+  const selectNextPeriod = () => {
+    if (isWeekMode) {
+      dispatch({ type: 'INCREMENT_WEEK' });
+    } else {
+      dispatch({ type: 'INCREMENT_MONTH' });
+    }
   };
 
-  const selectPrevMonth = () => {
-    const isFirstMonth = calendarMonth === 1;
-    const nextMonth = isFirstMonth ? MONTHS.length : calendarMonth - 1;
-    const nextYear = isFirstMonth ? calendarYear - 1 : calendarYear;
-    setCalendarMonth(nextMonth);
-    setCalendarYear(nextYear);
+  const selectPrevPeriod = () => {
+    if (isWeekMode) {
+      dispatch({ type: 'DECREMENT_WEEK' });
+    } else {
+      dispatch({ type: 'DECREMENT_MONTH' });
+    }
   };
 
   return (
     <CalendarContainer>
       <CalendarHeader
-        selectNextMonth={selectNextMonth}
-        selectPrevMonth={selectPrevMonth}
+        selectNextPeriod={selectNextPeriod}
+        selectPrevPeriod={selectPrevPeriod}
         calendarMonthName={calendarMonthName}
         calendarYear={calendarYear}
         firstDayOfWeek={firstDayOfWeek}
       />
-      <CalendarDates
-        firstDayOfWeek={firstDayOfWeek}
+      <CalendarContent
+        dates={dates}
         calendarMonth={calendarMonth}
-        calendarYear={calendarYear}
         onDateClick={onDateClick}
         selectedDate={selectedDate}
         range={range}
