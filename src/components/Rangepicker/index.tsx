@@ -10,8 +10,9 @@ import { getTimestampByDate } from '@/utils/getTimestampByDate';
 import { Calendar } from '../Calendar';
 import { DateInput } from '../DateInput';
 
-export const Rangepicker = ({ firstDayOfWeek, showHolidays }: PickerProps) => {
+export const Rangepicker = ({ firstDayOfWeek, showHolidays, holidayTimestamps }: PickerProps) => {
   const [isCalendarOpen, setCalendarOpen] = useState(false);
+
   const [selectedRangeInput, setSelectedRangeInput] = useState<'start' | 'end'>('start');
   const [startRangeDate, setStartRangeDate] = useState<MonthDate | null>(null);
   const [endRangeDate, setEndRangeDate] = useState<MonthDate | null>(null);
@@ -68,6 +69,7 @@ export const Rangepicker = ({ firstDayOfWeek, showHolidays }: PickerProps) => {
             onDateClick={handleRangeSelection}
             firstDayOfWeek={firstDayOfWeek}
             showHolidays={showHolidays}
+            holidayTimestamps={holidayTimestamps}
           />
         </RelativeContainer>
       )}
