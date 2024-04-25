@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 
-import { colors } from '@/styles/colors';
+import { colors } from '@/constants/colors';
 import { DateVariant, RangeVariant } from '@/types/date';
 
 const variantStyles = {

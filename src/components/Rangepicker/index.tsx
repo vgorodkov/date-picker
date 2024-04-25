@@ -2,9 +2,9 @@ import { useReducer } from 'react';
 
 import { Calendar } from '@/components/Calendar';
 import { DateInput } from '@/components/DateInput';
+import { spacing } from '@/constants/spacing';
 import { FlexContainer, RelativeContainer } from '@/styles/common';
 import { GlobalStyle } from '@/styles/global';
-import { spacing } from '@/constants/spacing';
 import { MonthDate, PickerProps, Range, RangeVariant } from '@/types/date';
 import { formatInputDate } from '@/utils/formatInputDate';
 import { getTimestampByDate } from '@/utils/getTimestampByDate';

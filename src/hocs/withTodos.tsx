@@ -1,10 +1,10 @@
-import { ChangeEvent, FC, useState } from 'react';
+import { FC, useState } from 'react';
 
-import { Button } from '@/components/Button';
-import { StyledInput } from '@/components/Input/styled';
-import { Modal } from '@/components/Modal';
+import { Button } from '@/components/UI/Button';
+import { StyledInput } from '@/components/UI/Input/styled';
+import { Modal } from '@/components/UI/Modal';
+import { spacing } from '@/constants/spacing';
 import { FlexContainer } from '@/styles/common';
-import { spacing } from '@/styles/spacing';
 import { MonthDate, PickerProps } from '@/types/date';
 import { zeroPad } from '@/utils/zeroPad';
 
