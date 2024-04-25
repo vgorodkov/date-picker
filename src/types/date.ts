@@ -11,16 +11,15 @@ export enum RangeVariant {
   END = 'end',
 }
 
-export enum FirstWeekDay {
-  MONDAY = 'Mo',
-  SUNDAY = 'Su',
-}
+export type FirstWeekDay = 'Mo' | 'Su';
+export type CalendarVariant = 'week' | 'month';
 
 export interface PickerProps {
   firstDayOfWeek?: FirstWeekDay;
   showHolidays?: boolean;
   holidayTimestamps?: number[];
   addTodo?: (date: MonthDate) => void;
+  calendarVariant: CalendarVariant;
 }
 
 export interface MonthDate {
