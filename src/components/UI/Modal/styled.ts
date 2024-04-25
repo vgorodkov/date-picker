@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { spacing } from '@/styles/spacing';
+import { spacing } from '@/constants/spacing';
 
 export const ModalContainer = styled.div<{ $isActive: boolean }>`
   height: 100vh;
