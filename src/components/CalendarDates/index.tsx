@@ -14,7 +14,7 @@ export const CalendarDates = ({
   firstDayOfWeek,
   range,
   showHolidays,
-  holidayTimestamps,
+  holidayTimestamps = [],
 }: CalendarDatesProps) => {
   const monthDates = getMonthDates(calendarYear, calendarMonth, firstDayOfWeek);
 
