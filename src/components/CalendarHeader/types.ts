@@ -1,8 +1,8 @@
 import { FirstWeekDay } from '@/types/date';
 
 export interface CalendarHeaderProps {
-  selectPrevMonth: () => void;
-  selectNextMonth: () => void;
+  selectPrevPeriod: () => void;
+  selectNextPeriod: () => void;
   calendarYear: number;
   calendarMonthName: string;
   firstDayOfWeek: FirstWeekDay;
