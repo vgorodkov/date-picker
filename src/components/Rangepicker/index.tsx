@@ -1,44 +1,51 @@
-import React, { useState } from 'react';
+import { useReducer } from 'react';
 
+import { Calendar } from '@/components/Calendar';
+import { DateInput } from '@/components/DateInput';
 import { FlexContainer, RelativeContainer } from '@/styles/common';
 import { GlobalStyle } from '@/styles/global';
-import { spacing } from '@/styles/spacing';
-import { MonthDate, PickerProps, Range } from '@/types/date';
+import { spacing } from '@/constants/spacing';
+import { MonthDate, PickerProps, Range, RangeVariant } from '@/types/date';
 import { formatInputDate } from '@/utils/formatInputDate';
 import { getTimestampByDate } from '@/utils/getTimestampByDate';
 
-import { Calendar } from '../Calendar';
-import { DateInput } from '../DateInput';
+import { reducer } from './reducer';
+import { initialState } from './types';
 
-export const Rangepicker = ({ firstDayOfWeek, showHolidays, holidayTimestamps }: PickerProps) => {
-  const [isCalendarOpen, setCalendarOpen] = useState(false);
+export const Rangepicker = ({
+  firstDayOfWeek,
+  showHolidays,
+  holidayTimestamps,
+  calendarVariant,
+}: PickerProps) => {
+  const [
+    {
+      isCalendarOpen,
+      rangeSelection: { startRangeDate, endRangeDate, selectedRangeInput },
+    },
+    dispatch,
+  ] = useReducer(reducer, initialState);
 
-  const [selectedRangeInput, setSelectedRangeInput] = useState<'start' | 'end'>('start');
-  const [startRangeDate, setStartRangeDate] = useState<MonthDate | null>(null);
-  const [endRangeDate, setEndRangeDate] = useState<MonthDate | null>(null);
+  const handleRangeSelection = (selectedDate: MonthDate) => {
+    dispatch({ type: 'SELECT_DATE', payload: selectedDate });
+  };
+
+  const onDateInputClick = (rangeInput: RangeVariant) => {
+    dispatch({ type: 'OPEN_CALENDAR' });
+    dispatch({ type: 'SET_SELECTED_INPUT', payload: rangeInput });
+  };
+
+  const resetStartRange = () => {
+    dispatch({ type: 'RESET_START_RANGE' });
+  };
+
+  const resetEndRange = () => {
+    dispatch({ type: 'RESET_END_RANGE' });
+  };
 
   const range: Range = {
     start: startRangeDate ? getTimestampByDate(startRangeDate) : null,
     end: endRangeDate ? getTimestampByDate(endRangeDate) : null,
-  };
-
-  const handleRangeSelection = (selectedDate: MonthDate) => {
-    if (selectedRangeInput === 'start') {
-      setStartRangeDate(selectedDate);
-    } else {
-      setEndRangeDate(selectedDate);
-    }
-  };
-  const resetStartRange = () => {
-    setStartRangeDate(null);
-  };
-  const resetEndRange = () => {
-    setEndRangeDate(null);
-  };
-
-  const onDateInputClick = (rangeInput: 'start' | 'end') => {
-    setCalendarOpen(true);
-    setSelectedRangeInput(rangeInput);
   };
 
   return (
@@ -46,16 +53,16 @@ export const Rangepicker = ({ firstDayOfWeek, showHolidays, holidayTimestamps }:
       <GlobalStyle />
       <FlexContainer $flexFlow="column nowrap" $gap={spacing.s}>
         <DateInput
-          isSelected={selectedRangeInput === 'start'}
-          onClick={() => onDateInputClick('start')}
+          isSelected={selectedRangeInput === RangeVariant.START}
+          onClick={() => onDateInputClick(RangeVariant.START)}
           value={formatInputDate(startRangeDate)}
           resetDate={resetStartRange}
           title="From"
           placeholder="Choose date"
         />
         <DateInput
-          isSelected={selectedRangeInput === 'end'}
-          onClick={() => onDateInputClick('end')}
+          isSelected={selectedRangeInput === RangeVariant.END}
+          onClick={() => onDateInputClick(RangeVariant.END)}
           value={formatInputDate(endRangeDate)}
           resetDate={resetEndRange}
           title="To"
@@ -65,6 +72,7 @@ export const Rangepicker = ({ firstDayOfWeek, showHolidays, holidayTimestamps }:
       {isCalendarOpen && (
         <RelativeContainer>
           <Calendar
+            calendarVariant={calendarVariant}
             range={range}
             onDateClick={handleRangeSelection}
             firstDayOfWeek={firstDayOfWeek}
