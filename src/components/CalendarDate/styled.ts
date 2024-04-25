@@ -49,7 +49,7 @@ export const StyledDate = styled.div<{
   align-items: center;
   font-weight: 600;
   color: ${colors.primaryText};
-  width: 32px;
+  flex-grow: 1;
   aspect-ratio: 1;
   border-radius: 8px;
   transition: 0.2s;
