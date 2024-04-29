@@ -1,16 +1,13 @@
-import { useReducer } from 'react';
+import { useState } from 'react';
 
 import { Calendar } from '@/components/Calendar';
-import { DateInput } from '@/components/DateInput';
-import { spacing } from '@/constants/spacing';
-import { FlexContainer, RelativeContainer } from '@/styles/common';
+import { useDateInput } from '@/hooks/useDateInput';
+import { RelativeContainer } from '@/styles/common';
 import { GlobalStyle } from '@/styles/global';
 import { MonthDate, PickerProps, Range, RangeVariant } from '@/types/date';
-import { formatInputDate } from '@/utils/formatInputDate';
 import { getTimestampByDate } from '@/utils/getTimestampByDate';
 
-import { reducer } from './reducer';
-import { initialState } from './types';
+import { RangeInput } from './RangeInput';
 
 export const Rangepicker = ({
   firstDayOfWeek,
@@ -18,69 +15,71 @@ export const Rangepicker = ({
   holidayTimestamps,
   calendarVariant,
 }: PickerProps) => {
-  const [
-    {
-      isCalendarOpen,
-      rangeSelection: { startRangeDate, endRangeDate, selectedRangeInput },
-    },
-    dispatch,
-  ] = useReducer(reducer, initialState);
+  const [selectedRangeInput, setSelectedRangeInput] = useState<RangeVariant | null>(null);
+  const [isCalendarOpen, setIsCalendarOpen] = useState(false);
+  const {
+    date: rangeStart,
+    setDate: setRangeStart,
+    onDateInputChange: onRangeStartChange,
+  } = useDateInput(null);
 
-  const handleRangeSelection = (selectedDate: MonthDate) => {
-    dispatch({ type: 'SELECT_DATE', payload: selectedDate });
+  const {
+    date: rangeEnd,
+    setDate: setRangeEnd,
+    onDateInputChange: onRangeEndChange,
+  } = useDateInput(null);
+
+  const range: Range = {
+    start: rangeStart ? getTimestampByDate(rangeStart) : null,
+    end: rangeEnd ? getTimestampByDate(rangeEnd) : null,
   };
 
-  const onDateInputClick = (rangeInput: RangeVariant) => {
-    dispatch({ type: 'OPEN_CALENDAR' });
-    dispatch({ type: 'SET_SELECTED_INPUT', payload: rangeInput });
+  const openCalendar = () => {
+    setIsCalendarOpen(true);
+  };
+
+  const onCalendarDateClick = (selectedDate: MonthDate) => {
+    if (selectedRangeInput === RangeVariant.START) {
+      setRangeStart(selectedDate);
+    } else {
+      setRangeEnd(selectedDate);
+    }
   };
 
   const resetStartRange = () => {
-    dispatch({ type: 'RESET_START_RANGE' });
+    setRangeStart(null);
   };
 
   const resetEndRange = () => {
-    dispatch({ type: 'RESET_END_RANGE' });
-  };
-
-  const range: Range = {
-    start: startRangeDate ? getTimestampByDate(startRangeDate) : null,
-    end: endRangeDate ? getTimestampByDate(endRangeDate) : null,
+    setRangeEnd(null);
   };
 
   return (
     <>
       <GlobalStyle />
-      <FlexContainer $flexFlow="column nowrap" $gap={spacing.s}>
-        <DateInput
-          isSelected={selectedRangeInput === RangeVariant.START}
-          onClick={() => onDateInputClick(RangeVariant.START)}
-          value={formatInputDate(startRangeDate)}
-          resetDate={resetStartRange}
-          title="From"
-          placeholder="Choose date"
-        />
-        <DateInput
-          isSelected={selectedRangeInput === RangeVariant.END}
-          onClick={() => onDateInputClick(RangeVariant.END)}
-          value={formatInputDate(endRangeDate)}
-          resetDate={resetEndRange}
-          title="To"
-          placeholder="Choose date"
-        />
-      </FlexContainer>
-      {isCalendarOpen && (
-        <RelativeContainer>
+      <RangeInput
+        openCalendar={openCalendar}
+        resetEndRange={resetEndRange}
+        resetStartRange={resetStartRange}
+        rangeStart={rangeStart}
+        rangeEnd={rangeEnd}
+        onRangeEndChange={onRangeEndChange}
+        onRangeStartChange={onRangeStartChange}
+        selectedRangeInput={selectedRangeInput}
+        setSelectedRangeInput={setSelectedRangeInput}
+      />
+      <RelativeContainer>
+        {isCalendarOpen && (
           <Calendar
             calendarVariant={calendarVariant}
             range={range}
-            onDateClick={handleRangeSelection}
+            onDateClick={onCalendarDateClick}
             firstDayOfWeek={firstDayOfWeek}
             showHolidays={showHolidays}
             holidayTimestamps={holidayTimestamps}
           />
-        </RelativeContainer>
-      )}
+        )}
+      </RelativeContainer>
     </>
   );
 };
