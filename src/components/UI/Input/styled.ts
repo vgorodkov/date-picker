@@ -8,9 +8,13 @@ export const StyledInput = styled.input`
   padding: ${spacing.s} ${spacing.m};
   gap: ${spacing.s};
   border-radius: 8px;
-
   &:focus {
     outline: none;
     border-color: ${colors.primary};
   }
+`;
+
+export const StyledLabel = styled.label`
+  color: ${colors.disabledText};
+  font-weight: 700;
 `;
