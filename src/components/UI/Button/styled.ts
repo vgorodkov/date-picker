@@ -19,10 +19,12 @@ export const StyledButton = styled.button<{ disabled: boolean }>`
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  border-radius: 4px;
+  border-radius: 8px;
   transition: 0.2s;
   cursor: pointer;
-
+  color: ${colors.onPrimary};
+  font-size: 14px;
+  font-weight: 700;
   ${(props) => props.disabled && DISABLED}
 
   &:hover {
