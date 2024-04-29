@@ -7,5 +7,6 @@ export const colors = {
   primaryText: '#333333',
   disabledText: '#AAAAAA',
   holidayText: '#FF0000',
+  disabledHolidayText: '#FF000095',
   onPrimary: 'white',
 };
