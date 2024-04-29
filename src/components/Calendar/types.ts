@@ -19,7 +19,8 @@ export interface CalendarState {
 }
 
 export type CalendarAction =
+  | { type: 'SET_DATE'; payload: MonthDate }
   | { type: 'INCREMENT_MONTH' }
   | { type: 'DECREMENT_MONTH' }
-  | { type: 'INCREMENT_WEEK' }
+  | { type: 'INCREMENT_WEEK'; payload: MonthDate[] }
   | { type: 'DECREMENT_WEEK' };

@@ -1,46 +1,53 @@
-import { useMemo, useReducer } from 'react';
+import { useEffect, useReducer } from 'react';
 
-import { CalendarContent } from '@/components/CalendarContent';
-import { CalendarHeader } from '@/components/CalendarHeader';
-import { CURRENT_DAY, CURRENT_MONTH, CURRENT_YEAR, MONTHS } from '@/constants/dates';
+import { CalendarContent } from '@/components/Calendar/CalendarContent';
+import { CalendarHeader } from '@/components/Calendar/CalendarHeader';
+import { CURRENT_DAY, CURRENT_MONTH, CURRENT_YEAR, MONTHS, WEEK_DAYS } from '@/constants/dates';
 import { getMonthDates } from '@/utils/getMonthDates';
 import { geetWeekDatesByWeekIndex } from '@/utils/getWeekDates';
 
-import { calendarReducer, initialState } from './reducer';
+import { calendarReducer } from './reducer';
 import { CalendarContainer } from './styled';
-import { CalendarProps } from './types';
+import { CalendarProps, CalendarState } from './types';
 
 export const Calendar = ({
-  selectedDate = {
-    day: CURRENT_DAY,
-    month: CURRENT_MONTH,
-    year: CURRENT_YEAR,
-  },
+  selectedDate = null,
   onDateClick,
   firstDayOfWeek = 'Mo',
-  range,
+  range = {
+    start: null,
+    end: null,
+  },
   showHolidays = false,
-  holidayTimestamps,
-  calendarVariant,
+  holidayTimestamps = [],
+  calendarVariant = 'month',
 }: CalendarProps) => {
+  const initialState: CalendarState = {
+    calendarMonth: selectedDate?.month ?? CURRENT_MONTH,
+    calendarYear: selectedDate?.year ?? CURRENT_YEAR,
+    weekIndex: Math.floor(CURRENT_DAY / WEEK_DAYS.length),
+  };
+
   const [{ calendarMonth, calendarYear, weekIndex }, dispatch] = useReducer(
     calendarReducer,
     initialState
   );
 
-  const isWeekMode = calendarVariant === 'week';
+  useEffect(() => {
+    if (selectedDate) {
+      dispatch({ type: 'SET_DATE', payload: selectedDate });
+    }
+  }, [selectedDate]);
 
+  const isWeekMode = calendarVariant === 'week';
+  const calendarMonthName = calendarMonth === 0 ? MONTHS[calendarMonth] : MONTHS[calendarMonth - 1];
   const monthDates = getMonthDates(calendarYear, calendarMonth, firstDayOfWeek);
   const dates = isWeekMode ? geetWeekDatesByWeekIndex(monthDates, weekIndex) : monthDates;
 
-  const calendarMonthName = useMemo(
-    () => (calendarMonth === 0 ? MONTHS[calendarMonth] : MONTHS[calendarMonth - 1]),
-    [calendarMonth]
-  );
-
+  // TODO: вынести в константы
   const selectNextPeriod = () => {
     if (isWeekMode) {
-      dispatch({ type: 'INCREMENT_WEEK' });
+      dispatch({ type: 'INCREMENT_WEEK', payload: monthDates });
     } else {
       dispatch({ type: 'INCREMENT_MONTH' });
     }

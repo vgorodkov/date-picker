@@ -1,4 +1,5 @@
 import { CURRENT_DAY, CURRENT_MONTH, CURRENT_YEAR, MONTHS, WEEK_DAYS } from '@/constants/dates';
+import { getNextMonth, getPrevMonth } from '@/utils/getMonthByWeekIndex';
 
 import { CalendarAction, CalendarState } from './types';
 
@@ -8,22 +9,13 @@ export const initialState: CalendarState = {
   weekIndex: Math.floor(CURRENT_DAY / WEEK_DAYS.length),
 };
 
-const getNextMonth = (weekIndex: number, calendarMonth: number): number => {
-  if (weekIndex === 4) {
-    return calendarMonth === MONTHS.length ? 1 : calendarMonth + 1;
-  }
-  return calendarMonth;
-};
-
-const getPrevMonth = (weekIndex: number, calendarMonth: number): number => {
-  if (weekIndex === 0) {
-    return calendarMonth === 1 ? MONTHS.length : calendarMonth - 1;
-  }
-  return calendarMonth;
-};
-
 export const calendarReducer = (state: CalendarState, action: CalendarAction): CalendarState => {
   switch (action.type) {
+    case 'SET_DATE': {
+      const { month, year } = action.payload;
+
+      return { ...state, calendarMonth: month, calendarYear: year };
+    }
     case 'INCREMENT_MONTH': {
       const nextMonth = state.calendarMonth === MONTHS.length ? 1 : state.calendarMonth + 1;
       const nextYear =
