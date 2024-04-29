@@ -54,7 +54,7 @@
     "react/jsx-props-no-spreading": [
       "error",
       {
-        "exceptions": ["img"]
+        "custom": "ignore"
       }
     ]
   }
