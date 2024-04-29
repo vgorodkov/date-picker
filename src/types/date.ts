@@ -3,6 +3,7 @@ export enum DateVariant {
   DISABLED = 'disabled',
   WEEKDAY = 'weekday',
   HOLIDAY = 'holiday',
+  DISABLED_HOLIDAY = 'disabledHoliday',
 }
 
 export enum RangeVariant {
@@ -20,6 +21,9 @@ export interface PickerProps {
   holidayTimestamps?: number[];
   addTodo?: (date: MonthDate) => void;
   calendarVariant: CalendarVariant;
+  selectedStartDate?: MonthDate | null;
+  minDate?: MonthDate | null;
+  maxDate?: MonthDate | null;
 }
 
 export interface MonthDate {
