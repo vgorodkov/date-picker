@@ -19,6 +19,9 @@ const variantStyles = {
   [DateVariant.HOLIDAY]: css`
     color: ${colors.holidayText};
   `,
+  [DateVariant.DISABLED_HOLIDAY]: css`
+    color: ${colors.disabledHolidayText};
+  `,
 };
 
 const rangeStyles = {

@@ -1,6 +1,6 @@
 import nextSvg from '@/assets/icons/next.svg';
 import prevSvg from '@/assets/icons/prev.svg';
-import { CalendarDate } from '@/components/CalendarDate';
+import { CalendarDate } from '@/components/Calendar/CalendarDate';
 import { Icon } from '@/components/UI/Icon';
 import { spacing } from '@/constants/spacing';
 import { FlexContainer, GridContainer } from '@/styles/common';
@@ -28,7 +28,7 @@ export const CalendarHeader = ({
       </FlexContainer>
       <GridContainer>
         {getWeekDays(firstDayOfWeek).map((weekday) => (
-          <CalendarDate variant={DateVariant.WEEKDAY} date={{ day: weekday }} />
+          <CalendarDate variant={DateVariant.WEEKDAY} date={{ day: weekday }} key={weekday} />
         ))}
       </GridContainer>
     </FlexContainer>
