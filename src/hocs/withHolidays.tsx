@@ -1,9 +1,11 @@
 import { FC } from 'react';
 
-import { PickerProps } from '@/types/date';
+import { MonthDate, PickerProps } from '@/types/date';
+import { getTimestampByDate } from '@/utils/getTimestampByDate';
 
-export const withHolidays = (WrappedComponent: FC<PickerProps>, holidayTimestamps: number[]) => {
-  return ({ ...props }) => {
+export const withHolidays = (WrappedComponent: FC<PickerProps>, holidayDates: MonthDate[]) => {
+  const holidayTimestamps = holidayDates.map((holidayDate) => getTimestampByDate(holidayDate));
+  return (props: PickerProps) => {
     return <WrappedComponent {...props} showHolidays holidayTimestamps={holidayTimestamps} />;
   };
 };
