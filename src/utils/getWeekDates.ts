@@ -1,16 +1,13 @@
 import { CURRENT_DAY, CURRENT_MONTH, CURRENT_YEAR } from '@/constants/dates';
-import { FirstWeekDay, MonthDate } from '@/types/date';
+import { MonthDate } from '@/types/date';
 
 import { getTimestampByDate } from './getTimestampByDate';
-import { getWeekDays } from './getWeekDays';
 
 export const getWeekDates = (
   year: number = CURRENT_YEAR,
   month: number = CURRENT_MONTH,
-  day: number = CURRENT_DAY,
-  firstDayOfWeek: FirstWeekDay = 'Mo'
+  day: number = CURRENT_DAY
 ) => {
-  const weekDays = getWeekDays(firstDayOfWeek);
   const weekDates = [];
   const currentDate = new Date(year, month - 1, day);
 

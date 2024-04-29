@@ -15,7 +15,6 @@ export const FlexContainer = styled.div<{
 
 export const RelativeContainer = styled.div`
   position: relative;
-  width: 100%;
 `;
 
 export const GridContainer = styled.div`
