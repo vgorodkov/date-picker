@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import { colors } from '@/constants/colors';
 import { spacing } from '@/constants/spacing';
@@ -9,14 +9,21 @@ export const InputLabel = styled.div`
   color: ${colors.primaryText};
 `;
 
-export const InputContainer = styled.div<{ $isSelected?: boolean }>`
+export const InputContainer = styled.div<{ $isSelected?: boolean; $isDateValid?: boolean }>`
   display: flex;
-  border: 1px solid #bbbbbb;
-  border-color: ${(props) => (props.$isSelected ? colors.primary : colors.border)};
+  border: 1px solid ${colors.border};
   align-items: center;
   padding: ${spacing.s} ${spacing.m};
   gap: ${spacing.s};
   border-radius: 8px;
+  ${(props) =>
+    props.$isSelected
+      ? css`
+          border-color: ${props.$isDateValid ? colors.primary : colors.holidayText};
+        `
+      : css`
+          border-color: ${colors.border};
+        `}
 `;
 
 export const StyledInput = styled.input`
