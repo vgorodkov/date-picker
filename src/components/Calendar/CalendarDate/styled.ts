@@ -1,7 +1,8 @@
 import styled, { css } from 'styled-components';
 
 import { colors } from '@/constants/colors';
-import { DateVariant, RangeVariant } from '@/types/date';
+import { DateVariant } from '@/types/date';
+import { RangeVariant } from '@/types/range';
 
 const variantStyles = {
   [DateVariant.DISABLED]: css`

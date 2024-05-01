@@ -2,7 +2,8 @@ import { FC, useState } from 'react';
 
 import { TodoModal } from '@/components/TodoModal';
 import { Modal } from '@/components/UI/Modal';
-import { MonthDate, PickerProps } from '@/types/date';
+import { MonthDate } from '@/types/date';
+import { PickerProps } from '@/types/picker';
 
 export const withTodos = (WrappedComponent: FC<PickerProps>) => {
   return (props: PickerProps) => {

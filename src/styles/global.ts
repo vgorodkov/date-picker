@@ -1,8 +1,8 @@
 import { createGlobalStyle } from 'styled-components';
 
-import boldFont from '@/assets/fonts/OpenSans-Bold.ttf';
-import regularFont from '@/assets/fonts/OpenSans-Regular.ttf';
-import semiboldFont from '@/assets/fonts/OpenSans-SemiBold.ttf';
+import boldFont from '@/assets/fonts/OpenSans-Bold.woff';
+import regularFont from '@/assets/fonts/OpenSans-Regular.woff';
+import semiboldFont from '@/assets/fonts/OpenSans-SemiBold.woff';
 
 export const GlobalStyle = createGlobalStyle`
   @font-face {
