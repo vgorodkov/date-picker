@@ -1,7 +1,8 @@
 import { CalendarDate } from '@/components/Calendar/CalendarDate';
 import { WEEK_DAYS } from '@/constants/dates';
 import { GridContainer } from '@/styles/common';
-import { DateVariant, MonthDate, RangeVariant } from '@/types/date';
+import { DateVariant, MonthDate } from '@/types/date';
+import { RangeVariant } from '@/types/range';
 import { getTimestampByDate } from '@/utils/getTimestampByDate';
 
 import { CalendarContentProps } from './types';
