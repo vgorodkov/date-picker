@@ -1,12 +1,14 @@
-import { KeyboardEvent, useState } from 'react';
+import { useState } from 'react';
 
 import { Calendar } from '@/components/Calendar';
-import { DateInput } from '@/components/DateInput';
-import { useDateInput } from '@/hooks/useDateInput';
+import { DATE_MASK } from '@/constants/dates';
 import { RelativeContainer } from '@/styles/common';
 import { GlobalStyle } from '@/styles/global';
-import { MonthDate, PickerProps } from '@/types/date';
-import { formatInputDate } from '@/utils/formatInputDate';
+import { MonthDate } from '@/types/date';
+import { PickerProps } from '@/types/picker';
+import { isDateValid } from '@/utils/isDateValid';
+
+import { DateInput } from '../DateInput';
 
 export const Datepicker = ({
   firstDayOfWeek,
@@ -17,48 +19,32 @@ export const Datepicker = ({
   selectedStartDate = null,
 }: PickerProps) => {
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
-  const { date, setDate, onDateInputChange } = useDateInput(selectedStartDate);
+  const [dateInput, setDateInput] = useState<MonthDate>(selectedStartDate ?? DATE_MASK);
 
-  const openCalendar = () => {
-    setIsCalendarOpen(true);
-  };
-
-  const resetDate = () => {
-    setDate(null);
-  };
+  const isValidDate = isDateValid(dateInput);
 
   const onDateClick = (selectedDate: MonthDate) => {
-    setDate(selectedDate);
+    const { day, month, year } = selectedDate;
+    setDateInput({ day, month, year });
     setIsCalendarOpen(false);
     if (addTodo) {
       addTodo(selectedDate);
     }
   };
 
-  const handleInputKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.code === 'Backspace') {
-      e.preventDefault();
-    }
+  const openCalendar = () => {
+    setIsCalendarOpen(true);
   };
 
   return (
     <>
       <GlobalStyle />
-      <DateInput
-        isSelected={isCalendarOpen}
-        resetDate={resetDate}
-        onClick={openCalendar}
-        onKeyDown={handleInputKeyDown}
-        title="Date"
-        placeholder="Choose date"
-        onChange={onDateInputChange}
-        value={formatInputDate(date)}
-      />
+      <DateInput label="Date" onClick={openCalendar} value={dateInput} setValue={setDateInput} />
       <RelativeContainer>
         {isCalendarOpen && (
           <Calendar
             firstDayOfWeek={firstDayOfWeek}
-            selectedDate={date}
+            selectedDate={isValidDate ? dateInput : null}
             onDateClick={onDateClick}
             showHolidays={showHolidays}
             holidayTimestamps={holidayTimestamps}

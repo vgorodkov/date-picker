@@ -1,13 +1,15 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 
 import { Calendar } from '@/components/Calendar';
-import { useDateInput } from '@/hooks/useDateInput';
+import { DATE_MASK } from '@/constants/dates';
 import { RelativeContainer } from '@/styles/common';
 import { GlobalStyle } from '@/styles/global';
-import { MonthDate, PickerProps, Range, RangeVariant } from '@/types/date';
+import { MonthDate } from '@/types/date';
+import { PickerProps } from '@/types/picker';
+import { RangeVariant } from '@/types/range';
 import { getTimestampByDate } from '@/utils/getTimestampByDate';
 
-import { RangeInput } from './RangeInput';
+import { DateInput } from '../DateInput';
 
 export const Rangepicker = ({
   firstDayOfWeek,
@@ -15,64 +17,70 @@ export const Rangepicker = ({
   holidayTimestamps,
   calendarVariant,
 }: PickerProps) => {
-  const [selectedRangeInput, setSelectedRangeInput] = useState<RangeVariant | null>(null);
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
-  const {
-    date: rangeStart,
-    setDate: setRangeStart,
-    onDateInputChange: onRangeStartChange,
-  } = useDateInput(null);
+  const [rangeVariant, setRangeVariant] = useState<RangeVariant | null>(null);
+  const [startRange, setStartRange] = useState<MonthDate>(DATE_MASK);
+  const [endRange, setEndRange] = useState<MonthDate>(DATE_MASK);
 
-  const {
-    date: rangeEnd,
-    setDate: setRangeEnd,
-    onDateInputChange: onRangeEndChange,
-  } = useDateInput(null);
-
-  const range: Range = {
-    start: rangeStart ? getTimestampByDate(rangeStart) : null,
-    end: rangeEnd ? getTimestampByDate(rangeEnd) : null,
-  };
+  const range = useMemo(() => {
+    const start = getTimestampByDate(startRange);
+    const end = getTimestampByDate(endRange);
+    return {
+      start,
+      end,
+    };
+  }, [startRange, endRange]);
 
   const openCalendar = () => {
     setIsCalendarOpen(true);
   };
 
   const onCalendarDateClick = (selectedDate: MonthDate) => {
-    if (selectedRangeInput === RangeVariant.START) {
-      setRangeStart(selectedDate);
-    } else {
-      setRangeEnd(selectedDate);
+    if (rangeVariant === RangeVariant.START) {
+      if (getTimestampByDate(selectedDate) > range.end) {
+        return;
+      }
+      setStartRange(selectedDate);
+    } else if (rangeVariant === RangeVariant.END) {
+      if (getTimestampByDate(selectedDate) < range.start) {
+        return;
+      }
+      setEndRange(selectedDate);
     }
   };
 
-  const resetStartRange = () => {
-    setRangeStart(null);
+  const onStartRangeInputClick = () => {
+    setRangeVariant(RangeVariant.START);
+    openCalendar();
   };
 
-  const resetEndRange = () => {
-    setRangeEnd(null);
+  const onEndRangeInputClick = () => {
+    setRangeVariant(RangeVariant.END);
+    openCalendar();
   };
 
   return (
     <>
       <GlobalStyle />
-      <RangeInput
-        openCalendar={openCalendar}
-        resetEndRange={resetEndRange}
-        resetStartRange={resetStartRange}
-        rangeStart={rangeStart}
-        rangeEnd={rangeEnd}
-        onRangeEndChange={onRangeEndChange}
-        onRangeStartChange={onRangeStartChange}
-        selectedRangeInput={selectedRangeInput}
-        setSelectedRangeInput={setSelectedRangeInput}
+      <DateInput
+        isSelected={rangeVariant === RangeVariant.START}
+        label="From"
+        value={startRange}
+        setValue={setStartRange}
+        onClick={onStartRangeInputClick}
+      />
+      <DateInput
+        isSelected={rangeVariant === RangeVariant.END}
+        label="To"
+        value={endRange}
+        setValue={setEndRange}
+        onClick={onEndRangeInputClick}
       />
       <RelativeContainer>
         {isCalendarOpen && (
           <Calendar
-            calendarVariant={calendarVariant}
             range={range}
+            calendarVariant={calendarVariant}
             onDateClick={onCalendarDateClick}
             firstDayOfWeek={firstDayOfWeek}
             showHolidays={showHolidays}
