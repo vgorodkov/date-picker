@@ -6,12 +6,19 @@ export enum DateVariant {
   DISABLED_HOLIDAY = 'disabledHoliday',
 }
 export interface MonthDate {
-  day: number | string;
-  month: number | string;
-  year: number | string;
+  day: number;
+  month: number;
+  year: number;
   timestamp?: number;
 }
 
 export interface Weekday {
   day: string;
+}
+
+export const DATE_MASK = { day: 'DD', month: 'MM', year: 'YYYY' };
+
+export interface DateLimit {
+  min: MonthDate;
+  max: MonthDate;
 }
