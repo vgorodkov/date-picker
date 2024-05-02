@@ -1,19 +1,17 @@
-import { KeyboardEvent, useEffect, useRef, useState } from 'react';
+import { KeyboardEvent, useEffect, useRef } from 'react';
 
 import calendarIcon from '@/assets/icons/calendar.svg';
 import clearIcon from '@/assets/icons/clear.svg';
-import { DATE_MASK } from '@/constants/dates';
+import { Icon } from '@/components/UI';
 import { spacing } from '@/constants/spacing';
 import { useInputCursorSelection } from '@/hooks/useInputCursorSelection';
 import { FlexContainer } from '@/styles/common';
-import { MonthDate } from '@/types/date';
+import { DATE_MASK, MonthDate } from '@/types/date';
 import { formatDateInput } from '@/utils/formatDateInput';
 import { getMonthLength } from '@/utils/getMonthLenght';
-import { isDateValid } from '@/utils/isDateValid';
 import { validateNumberInRange } from '@/utils/validateNumberInRange';
 import { zeroPad } from '@/utils/zeroPad';
 
-import { Icon } from '../UI';
 import { InputContainer, InputLabel, StyledInput } from './styled';
 import { DateInputProps } from './types';
 
@@ -23,8 +21,15 @@ const cursorRanges = [
   { start: 6, end: 10 },
 ];
 
-export const DateInput = ({ value, setValue, onClick, label, onBlur }: DateInputProps) => {
-  const [isSelected, setIsSelected] = useState(false);
+export const DateInput = ({
+  value,
+  setValue,
+  onClick,
+  label,
+  onBlur,
+  isSelected,
+  isDateValid = true,
+}: DateInputProps) => {
   const { cursor, onInputSelect } = useInputCursorSelection(cursorRanges);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -34,15 +39,10 @@ export const DateInput = ({ value, setValue, onClick, label, onBlur }: DateInput
     }
   }, [cursor, value]);
 
-  const onInputFocus = () => {
-    setIsSelected(true);
-  };
-
   const onInputBlur = () => {
     if (onBlur) {
       onBlur();
     }
-    setIsSelected(false);
   };
 
   const handleDayInput = (keyCode: string, date: MonthDate) => {
@@ -54,7 +54,7 @@ export const DateInput = ({ value, setValue, onClick, label, onBlur }: DateInput
       newDay = zeroPad(keyCode, 2);
     }
     const newDate: MonthDate = {
-      day: validateNumberInRange(+newDay, 1, getMonthLength(+month)).toString(),
+      day: validateNumberInRange(+newDay, 1, getMonthLength(+month)),
       month,
       year,
     };
@@ -73,7 +73,7 @@ export const DateInput = ({ value, setValue, onClick, label, onBlur }: DateInput
     }
     const newDate: MonthDate = {
       day,
-      month: validateNumberInRange(+newMonth, 1, 12).toString(),
+      month: validateNumberInRange(+newMonth, 1, 12),
       year,
     };
     setValue(newDate);
@@ -99,6 +99,22 @@ export const DateInput = ({ value, setValue, onClick, label, onBlur }: DateInput
     const keyCode = e.key;
     const [dayRange, monthRange, yearRange] = cursorRanges;
 
+    if (keyCode === 'Backspace') {
+      if (cursor.end <= dayRange.end) {
+        const newDay = DATE_MASK.day;
+        const newDate: MonthDate = { ...value, day: newDay };
+        setValue(newDate);
+      } else if (cursor.end <= monthRange.end) {
+        const newMonth = DATE_MASK.month;
+        const newDate: MonthDate = { ...value, month: newMonth };
+        setValue(newDate);
+      } else if (cursor.end <= yearRange.end) {
+        const newYear = DATE_MASK.year;
+        const newDate: MonthDate = { ...value, year: newYear };
+        setValue(newDate);
+      }
+    }
+
     if (keyCode.match(/^[0-9]/g)) {
       if (cursor.end <= dayRange.end) {
         handleDayInput(keyCode, value);
@@ -117,10 +133,9 @@ export const DateInput = ({ value, setValue, onClick, label, onBlur }: DateInput
   return (
     <FlexContainer $flexFlow="column nowrap" $gap={spacing.s}>
       <InputLabel>{label}</InputLabel>
-      <InputContainer $isSelected={isSelected} $isDateValid={isDateValid(value)} onClick={onClick}>
+      <InputContainer $isSelected={isSelected} $isDateValid={isDateValid} onClick={onClick}>
         <Icon src={calendarIcon} />
         <StyledInput
-          onFocus={onInputFocus}
           onBlur={onInputBlur}
           value={formatDateInput(value)}
           onSelect={onInputSelect}
