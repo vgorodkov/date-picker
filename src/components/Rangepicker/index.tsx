@@ -1,10 +1,9 @@
 import { useMemo, useState } from 'react';
 
 import { Calendar } from '@/components/Calendar';
-import { DATE_MASK } from '@/constants/dates';
 import { RelativeContainer } from '@/styles/common';
 import { GlobalStyle } from '@/styles/global';
-import { MonthDate } from '@/types/date';
+import { DATE_MASK, MonthDate } from '@/types/date';
 import { PickerProps } from '@/types/picker';
 import { RangeVariant } from '@/types/range';
 import { getTimestampByDate } from '@/utils/getTimestampByDate';

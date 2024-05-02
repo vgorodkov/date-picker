@@ -1,5 +1,6 @@
 import { MONTHS, WEEKS_AMOUNT } from '@/constants/dates';
-import { FirstWeekDay, MonthDate } from '@/types/date';
+import { MonthDate } from '@/types/date';
+import { FirstWeekDay } from '@/types/picker';
 
 import { getTimestampByDate } from './getTimestampByDate';
 import { getWeekDays } from './getWeekDays';
