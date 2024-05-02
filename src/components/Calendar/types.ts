@@ -1,4 +1,6 @@
-import { CalendarVariant, FirstWeekDay, MonthDate, Range } from '@/types/date';
+import { MonthDate } from '@/types/date';
+import { CalendarVariant, FirstWeekDay } from '@/types/picker';
+import { Range } from '@/types/range';
 
 export interface CalendarProps {
   onDateClick?: (date: MonthDate) => void;
@@ -7,8 +9,6 @@ export interface CalendarProps {
   range?: Range;
   showHolidays?: boolean;
   holidayTimestamps?: number[];
-  month?: number;
-  year?: number;
   calendarVariant?: CalendarVariant;
 }
 
@@ -18,9 +18,17 @@ export interface CalendarState {
   weekIndex: number;
 }
 
+export enum CalendarActionType {
+  SET_DATE,
+  INCREMENT_MONTH,
+  DECREMENT_MONTH,
+  INCREMENT_WEEK,
+  DECREMENT_WEEK,
+}
+
 export type CalendarAction =
-  | { type: 'SET_DATE'; payload: MonthDate }
-  | { type: 'INCREMENT_MONTH' }
-  | { type: 'DECREMENT_MONTH' }
-  | { type: 'INCREMENT_WEEK'; payload: MonthDate[] }
-  | { type: 'DECREMENT_WEEK' };
+  | { type: CalendarActionType.SET_DATE; payload: MonthDate }
+  | { type: CalendarActionType.INCREMENT_MONTH }
+  | { type: CalendarActionType.DECREMENT_MONTH }
+  | { type: CalendarActionType.INCREMENT_WEEK; payload: MonthDate[] }
+  | { type: CalendarActionType.DECREMENT_WEEK };

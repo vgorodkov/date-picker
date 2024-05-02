@@ -8,7 +8,7 @@ import { geetWeekDatesByWeekIndex } from '@/utils/getWeekDates';
 
 import { calendarReducer } from './reducer';
 import { CalendarContainer } from './styled';
-import { CalendarProps, CalendarState } from './types';
+import { CalendarActionType, CalendarProps, CalendarState } from './types';
 
 export const Calendar = ({
   selectedDate = null,
@@ -35,29 +35,29 @@ export const Calendar = ({
 
   useEffect(() => {
     if (selectedDate) {
-      dispatch({ type: 'SET_DATE', payload: selectedDate });
+      dispatch({ type: CalendarActionType.SET_DATE, payload: selectedDate });
     }
   }, [selectedDate]);
 
   const isWeekMode = calendarVariant === 'week';
-  const calendarMonthName = calendarMonth === 0 ? MONTHS[calendarMonth] : MONTHS[calendarMonth - 1];
+  const calendarMonthName =
+    calendarMonth === 0 ? MONTHS[calendarMonth] : MONTHS[+calendarMonth - 1];
   const monthDates = getMonthDates(calendarYear, calendarMonth, firstDayOfWeek);
   const dates = isWeekMode ? geetWeekDatesByWeekIndex(monthDates, weekIndex) : monthDates;
 
-  // TODO: вынести в константы
   const selectNextPeriod = () => {
     if (isWeekMode) {
-      dispatch({ type: 'INCREMENT_WEEK', payload: monthDates });
+      dispatch({ type: CalendarActionType.INCREMENT_WEEK, payload: monthDates });
     } else {
-      dispatch({ type: 'INCREMENT_MONTH' });
+      dispatch({ type: CalendarActionType.INCREMENT_MONTH });
     }
   };
 
   const selectPrevPeriod = () => {
     if (isWeekMode) {
-      dispatch({ type: 'DECREMENT_WEEK' });
+      dispatch({ type: CalendarActionType.DECREMENT_WEEK });
     } else {
-      dispatch({ type: 'DECREMENT_MONTH' });
+      dispatch({ type: CalendarActionType.DECREMENT_MONTH });
     }
   };
 
