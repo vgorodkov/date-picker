@@ -21,5 +21,10 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {
-  args: {},
+  args: {
+    firstDayOfWeek: 'Mo',
+    showHolidays: true,
+    calendarVariant: 'month',
+    selectedStartDate: { day: 29, month: 4, year: 2024 },
+  },
 };
