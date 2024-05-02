@@ -12,6 +12,12 @@ export interface MonthDate {
   timestamp?: number;
 }
 
+export interface DateInputValue {
+  day: string | number;
+  month: string | number;
+  year: string | number;
+}
+
 export interface Weekday {
   day: string;
 }
