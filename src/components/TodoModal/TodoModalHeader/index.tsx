@@ -1,4 +1,3 @@
-import { spacing } from '@/constants/spacing';
 import { FlexContainer } from '@/styles/common';
 import { zeroPad } from '@/utils/zeroPad';
 
@@ -9,16 +8,11 @@ export const TodoModalHeader = ({ selectedDate }: TodoModalHeaderProps) => {
     return <h4>No selected date</h4>;
   }
 
-  const savedTodo = localStorage.getItem(
-    `${selectedDate?.day}-${selectedDate?.month}-${selectedDate?.year}`
-  );
-
   return (
-    <FlexContainer $flexFlow="column nowrap" $gap={spacing.s} $alignItems="center">
+    <FlexContainer $justifyContent="center">
       <h5>
         {zeroPad(selectedDate?.day, 2)}/{zeroPad(selectedDate?.month, 2)}/{selectedDate?.year}
       </h5>
-      <h3>{savedTodo ?? 'No Todos yet'}</h3>
     </FlexContainer>
   );
 };
