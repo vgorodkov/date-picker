@@ -3,23 +3,19 @@ import { KeyboardEvent, useEffect, useRef } from 'react';
 import calendarIcon from '@/assets/icons/calendar.svg';
 import clearIcon from '@/assets/icons/clear.svg';
 import { Icon } from '@/components/UI';
+import { MONTHS } from '@/constants/dates';
 import { spacing } from '@/constants/spacing';
 import { useInputCursorSelection } from '@/hooks/useInputCursorSelection';
 import { FlexContainer } from '@/styles/common';
-import { DATE_MASK, MonthDate } from '@/types/date';
+import { DATE_MASK, DateInputValue } from '@/types/date';
 import { formatDateInput } from '@/utils/formatDateInput';
 import { getMonthLength } from '@/utils/getMonthLenght';
 import { validateNumberInRange } from '@/utils/validateNumberInRange';
 import { zeroPad } from '@/utils/zeroPad';
 
+import { BACKSPACE_KEY, cursorRanges, DIGITS_REGEXP } from './constants';
 import { InputContainer, InputLabel, StyledInput } from './styled';
 import { DateInputProps } from './types';
-
-const cursorRanges = [
-  { start: 0, end: 2 },
-  { start: 3, end: 5 },
-  { start: 6, end: 10 },
-];
 
 export const DateInput = ({
   value,
@@ -45,7 +41,7 @@ export const DateInput = ({
     }
   };
 
-  const handleDayInput = (keyCode: string, date: MonthDate) => {
+  const handleDayInput = (keyCode: string, date: DateInputValue) => {
     const { day, month, year } = date;
     let newDay: string;
     if (+day < 10) {
@@ -53,7 +49,7 @@ export const DateInput = ({
     } else {
       newDay = zeroPad(keyCode, 2);
     }
-    const newDate: MonthDate = {
+    const newDate: DateInputValue = {
       day: validateNumberInRange(+newDay, 1, getMonthLength(+month)),
       month,
       year,
@@ -61,7 +57,7 @@ export const DateInput = ({
     setValue(newDate);
   };
 
-  const handleMonthInput = (keyCode: string, date: MonthDate) => {
+  const handleMonthInput = (keyCode: string, date: DateInputValue) => {
     const { day, month, year } = date;
     let newMonth: string;
     if (+month < 10) {
@@ -71,25 +67,25 @@ export const DateInput = ({
     } else {
       newMonth = zeroPad(keyCode, 2);
     }
-    const newDate: MonthDate = {
+    const newDate: DateInputValue = {
       day,
-      month: validateNumberInRange(+newMonth, 1, 12),
+      month: validateNumberInRange(+newMonth, 1, MONTHS.length),
       year,
     };
     setValue(newDate);
   };
 
-  const handleYearInput = (keyCode: string, date: MonthDate) => {
+  const handleYearInput = (keyCode: string, date: DateInputValue) => {
     const { day, month, year } = date;
     let newYear: string;
-    if (year === 'YYYY') {
+    if (year === DATE_MASK.year) {
       newYear = zeroPad(keyCode, 4);
     } else if (+year >= 1000) {
       newYear = zeroPad(keyCode, 4);
     } else {
       newYear = zeroPad(`${+year}${keyCode}`, 4);
     }
-    const newDate: MonthDate = { day, month, year: newYear };
+    const newDate: DateInputValue = { day, month, year: newYear };
     setValue(newDate);
   };
 
@@ -99,23 +95,23 @@ export const DateInput = ({
     const keyCode = e.key;
     const [dayRange, monthRange, yearRange] = cursorRanges;
 
-    if (keyCode === 'Backspace') {
+    if (keyCode === BACKSPACE_KEY) {
       if (cursor.end <= dayRange.end) {
         const newDay = DATE_MASK.day;
-        const newDate: MonthDate = { ...value, day: newDay };
+        const newDate: DateInputValue = { ...value, day: newDay };
         setValue(newDate);
       } else if (cursor.end <= monthRange.end) {
         const newMonth = DATE_MASK.month;
-        const newDate: MonthDate = { ...value, month: newMonth };
+        const newDate: DateInputValue = { ...value, month: newMonth };
         setValue(newDate);
       } else if (cursor.end <= yearRange.end) {
         const newYear = DATE_MASK.year;
-        const newDate: MonthDate = { ...value, year: newYear };
+        const newDate: DateInputValue = { ...value, year: newYear };
         setValue(newDate);
       }
     }
 
-    if (keyCode.match(/^[0-9]/g)) {
+    if (keyCode.match(DIGITS_REGEXP)) {
       if (cursor.end <= dayRange.end) {
         handleDayInput(keyCode, value);
       } else if (cursor.end <= monthRange.end) {

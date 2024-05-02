@@ -1,8 +1,8 @@
-import { MonthDate } from '@/types/date';
+import { DateInputValue } from '@/types/date';
 
 export interface DateInputProps {
-  value: MonthDate;
-  setValue: (value: MonthDate) => void;
+  value: DateInputValue;
+  setValue: (value: DateInputValue) => void;
   onClick: () => void;
   onBlur?: () => void;
   label: string;
