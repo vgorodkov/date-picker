@@ -3,9 +3,11 @@ import { useMemo, useState } from 'react';
 import { Calendar } from '@/components/Calendar';
 import { RelativeContainer } from '@/styles/common';
 import { GlobalStyle } from '@/styles/global';
-import { DATE_MASK, MonthDate } from '@/types/date';
+import { DATE_MASK, DateInputValue, MonthDate } from '@/types/date';
 import { PickerProps } from '@/types/picker';
 import { isDateInRangeLimit } from '@/utils/isDateInRangeLimit';
+import { isInputMaskified } from '@/utils/isInputMaskified';
+import { transformDateInputToMonthDate } from '@/utils/transformDateInputToMonthDate';
 
 import { DateInput } from '../DateInput';
 
@@ -19,10 +21,13 @@ export const Datepicker = ({
   dateLimit = { min: { day: 1, month: 1, year: 2020 }, max: { day: 1, month: 1, year: 2030 } },
 }: PickerProps) => {
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
-  const [dateInput, setDateInput] = useState<MonthDate>(selectedStartDate ?? DATE_MASK);
+  const [dateInput, setDateInput] = useState<DateInputValue>(selectedStartDate ?? DATE_MASK);
 
   const isDateValid = useMemo(() => {
-    return isDateInRangeLimit(dateInput, dateLimit);
+    if (!isInputMaskified(dateInput)) {
+      return false;
+    }
+    return isDateInRangeLimit(transformDateInputToMonthDate(dateInput), dateLimit);
   }, [dateInput, dateLimit]);
 
   const onDateClick = (selectedDate: MonthDate) => {
@@ -53,7 +58,7 @@ export const Datepicker = ({
         {isCalendarOpen && (
           <Calendar
             firstDayOfWeek={firstDayOfWeek}
-            selectedDate={isDateValid ? dateInput : null}
+            selectedDate={isDateValid ? transformDateInputToMonthDate(dateInput) : null}
             onDateClick={onDateClick}
             showHolidays={showHolidays}
             holidayTimestamps={holidayTimestamps}
