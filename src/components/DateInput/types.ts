@@ -7,4 +7,5 @@ export interface DateInputProps {
   onBlur?: () => void;
   label: string;
   isSelected?: boolean;
+  isDateValid?: boolean;
 }
