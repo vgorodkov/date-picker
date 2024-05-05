@@ -23,6 +23,7 @@ export const Rangepicker = ({
   const [startRange, setStartRange] = useState<DateInputValue>(DATE_MASK);
   const [endRange, setEndRange] = useState<DateInputValue>(DATE_MASK);
 
+  // change naming
   const range = useMemo(() => {
     const start = getTimestampByDate(transformDateInputToMonthDate(startRange));
     const end = getTimestampByDate(transformDateInputToMonthDate(endRange));
@@ -37,18 +38,14 @@ export const Rangepicker = ({
     return isRangeValid(range);
   }, [range]);
 
-  const openCalendar = () => {
-    setIsCalendarOpen(true);
-  };
-
   const onCalendarDateClick = (selectedDate: MonthDate) => {
     if (rangeVariant === RangeVariant.START) {
-      if (getTimestampByDate(selectedDate) > range.end) {
+      if (selectedDate.timestamp > range.end) {
         return;
       }
       setStartRange(selectedDate);
     } else if (rangeVariant === RangeVariant.END) {
-      if (getTimestampByDate(selectedDate) < range.start) {
+      if (selectedDate.timestamp < range.start) {
         return;
       }
       setEndRange(selectedDate);
@@ -57,12 +54,12 @@ export const Rangepicker = ({
 
   const onStartRangeInputClick = () => {
     setRangeVariant(RangeVariant.START);
-    openCalendar();
+    setIsCalendarOpen(true);
   };
 
   const onEndRangeInputClick = () => {
     setRangeVariant(RangeVariant.END);
-    openCalendar();
+    setIsCalendarOpen(true);
   };
 
   return (
@@ -89,6 +86,7 @@ export const Rangepicker = ({
       <RelativeContainer>
         {isCalendarOpen && (
           <Calendar
+            withTodo={false}
             range={isValidRange ? range : undefined}
             calendarVariant={calendarVariant}
             onDateClick={onCalendarDateClick}
