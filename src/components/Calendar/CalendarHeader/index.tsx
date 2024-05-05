@@ -1,3 +1,5 @@
+import { useMemo } from 'react';
+
 import nextSvg from '@/assets/icons/next.svg';
 import prevSvg from '@/assets/icons/prev.svg';
 import { CalendarDate } from '@/components/Calendar/CalendarDate';
@@ -17,6 +19,10 @@ export const CalendarHeader = ({
   calendarMonthName,
   firstDayOfWeek,
 }: CalendarHeaderProps) => {
+  const weekDays = useMemo(() => {
+    return getWeekDays(firstDayOfWeek);
+  }, [firstDayOfWeek]);
+
   return (
     <FlexContainer $flexFlow="column nowrap" $alignItems="space-between" $gap={spacing.xs}>
       <FlexContainer $justifyContent="space-between">
@@ -27,7 +33,7 @@ export const CalendarHeader = ({
         <Icon onClick={selectNextPeriod} src={nextSvg} alt="next" title="next month" />
       </FlexContainer>
       <GridContainer>
-        {getWeekDays(firstDayOfWeek).map((weekday) => (
+        {weekDays.map((weekday) => (
           <CalendarDate
             withTodo={false}
             variant={DateVariant.WEEKDAY}
