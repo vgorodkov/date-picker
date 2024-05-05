@@ -25,6 +25,5 @@ export const Primary: Story = {
     firstDayOfWeek: 'Mo',
     showHolidays: true,
     calendarVariant: 'month',
-    selectedStartDate: { day: 29, month: 4, year: 2024 },
   },
 };
