@@ -17,14 +17,19 @@ export const CalendarDate = ({
     }
   };
 
-  const hasTodo =
-    variant !== DateVariant.WEEKDAY
-      ? localStorage.getItem(`${date?.day}-${date?.month}-${date?.year}`)
-      : false;
+  const isDateHasTodo = () => {
+    if (variant === DateVariant.WEEKDAY) {
+      return false;
+    }
+
+    const { day, month, year } = date as MonthDate;
+
+    return !!localStorage.getItem(`${day}-${month}-${year}`);
+  };
 
   return (
     <StyledDate
-      $withTodo={withTodo && !!hasTodo}
+      $withTodo={withTodo && isDateHasTodo()}
       $range={rangeVariant}
       $variant={variant}
       $selected={isSelected}
