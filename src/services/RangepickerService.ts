@@ -7,10 +7,6 @@ export class RangepickerService {
     this.rangePicker = Rangepicker;
   }
 
-  addDecorator(decorator) {
-    this.rangePicker = decorator(this.rangePicker);
-  }
-
   createRangepicker() {
     return this.rangePicker;
   }
