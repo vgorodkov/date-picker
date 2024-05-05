@@ -12,5 +12,6 @@ export const isDateInRangeLimit = (dateInput: MonthDate, dateLimit: DateLimit) =
   const maxTimestamp = getTimestampByDate(dateLimit.max);
 
   const isInRange = dateTimestamp >= minTimestamp && dateTimestamp <= maxTimestamp;
+
   return isInRange;
 };
