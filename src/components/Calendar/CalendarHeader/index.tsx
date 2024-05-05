@@ -28,7 +28,12 @@ export const CalendarHeader = ({
       </FlexContainer>
       <GridContainer>
         {getWeekDays(firstDayOfWeek).map((weekday) => (
-          <CalendarDate variant={DateVariant.WEEKDAY} date={{ day: weekday }} key={weekday} />
+          <CalendarDate
+            withTodo={false}
+            variant={DateVariant.WEEKDAY}
+            date={{ day: weekday }}
+            key={weekday}
+          />
         ))}
       </GridContainer>
     </FlexContainer>

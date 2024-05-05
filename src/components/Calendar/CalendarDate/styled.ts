@@ -47,6 +47,7 @@ export const StyledDate = styled.div<{
   $variant?: DateVariant;
   $selected?: boolean;
   $range?: RangeVariant;
+  $withTodo?: boolean;
 }>`
   display: flex;
   justify-content: center;
@@ -71,5 +72,10 @@ export const StyledDate = styled.div<{
     css`
       background-color: ${colors.primary};
       color: ${colors.onPrimary};
+    `}
+    ${(props) =>
+    props.$withTodo &&
+    css`
+      text-decoration: underline;
     `}
 `;

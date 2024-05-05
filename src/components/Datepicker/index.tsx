@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 
 import { Calendar } from '@/components/Calendar';
+import { DateInput } from '@/components/DateInput';
 import { RelativeContainer } from '@/styles/common';
 import { GlobalStyle } from '@/styles/global';
 import { DATE_MASK, DateInputValue, MonthDate } from '@/types/date';
@@ -8,8 +9,6 @@ import { PickerProps } from '@/types/picker';
 import { isDateInRangeLimit } from '@/utils/isDateInRangeLimit';
 import { isInputMaskified } from '@/utils/isInputMaskified';
 import { transformDateInputToMonthDate } from '@/utils/transformDateInputToMonthDate';
-
-import { DateInput } from '../DateInput';
 
 export const Datepicker = ({
   firstDayOfWeek,
@@ -24,7 +23,7 @@ export const Datepicker = ({
   const [dateInput, setDateInput] = useState<DateInputValue>(selectedStartDate ?? DATE_MASK);
 
   const isDateValid = useMemo(() => {
-    if (!isInputMaskified(dateInput)) {
+    if (isInputMaskified(dateInput)) {
       return false;
     }
     return isDateInRangeLimit(transformDateInputToMonthDate(dateInput), dateLimit);
@@ -32,8 +31,10 @@ export const Datepicker = ({
 
   const onDateClick = (selectedDate: MonthDate) => {
     const { day, month, year } = selectedDate;
+
     setDateInput({ day, month, year });
     setIsCalendarOpen(false);
+
     if (addTodo) {
       addTodo(selectedDate);
     }
@@ -57,6 +58,7 @@ export const Datepicker = ({
       <RelativeContainer>
         {isCalendarOpen && (
           <Calendar
+            withTodo={!!addTodo}
             firstDayOfWeek={firstDayOfWeek}
             selectedDate={isDateValid ? transformDateInputToMonthDate(dateInput) : null}
             onDateClick={onDateClick}
