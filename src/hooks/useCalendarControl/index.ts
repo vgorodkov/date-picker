@@ -1,11 +1,12 @@
 import { useEffect, useReducer } from 'react';
 
-import { CalendarActionType, CalendarState } from '@/components/Calendar/types';
-import { CURRENT_DAY, CURRENT_MONTH, CURRENT_YEAR, WEEK_DAYS } from '@/constants/dates';
+import { CURRENT_MONTH, CURRENT_YEAR } from '@/constants/dates';
 import { MonthDate } from '@/types/date';
 import { CalendarVariant } from '@/types/picker';
 
 import { calendarReducer } from './reducer';
+import { CalendarActionType, CalendarState } from './types';
+import { getWeekIndexByDay } from './utils';
 
 export const useCalendarControl = (
   selectedDate: MonthDate | null,
@@ -14,7 +15,7 @@ export const useCalendarControl = (
   const initialState: CalendarState = {
     calendarMonth: selectedDate?.month ?? CURRENT_MONTH,
     calendarYear: selectedDate?.year ?? CURRENT_YEAR,
-    weekIndex: Math.floor((selectedDate?.day ?? CURRENT_DAY) / WEEK_DAYS.length),
+    weekIndex: getWeekIndexByDay(selectedDate?.day),
   };
 
   const [{ calendarMonth, calendarYear, weekIndex }, dispatch] = useReducer(
@@ -22,19 +23,19 @@ export const useCalendarControl = (
     initialState
   );
 
+  const isWeekMode = calendarVariant === 'week';
+
   useEffect(() => {
     if (selectedDate) {
       dispatch({ type: CalendarActionType.SET_DATE, payload: selectedDate });
       dispatch({
         type: CalendarActionType.SET_WEEK,
         payload: {
-          weekIndex: Math.floor(((selectedDate?.day ?? CURRENT_DAY) + 1) / WEEK_DAYS.length),
+          weekIndex: getWeekIndexByDay(selectedDate?.day),
         },
       });
     }
   }, [selectedDate]);
-
-  const isWeekMode = calendarVariant === 'week';
 
   const selectNextPeriod = () => {
     if (isWeekMode) {
