@@ -1,10 +1,19 @@
 import { DateInputValue, MonthDate } from '@/types/date';
 
+import { getTimestampByDate } from './getTimestampByDate';
+
 export const transformDateInputToMonthDate = (dateInput: DateInputValue): MonthDate => {
-  const newDateInput: MonthDate = {
-    day: +dateInput.day,
-    month: +dateInput.month,
-    year: +dateInput.year,
+  const { day, month, year } = dateInput;
+
+  const transformedDate = {
+    day: +day,
+    month: +month,
+    year: +year,
   };
-  return newDateInput;
+
+  const transformedDateWithTimestamp: MonthDate = {
+    ...transformedDate,
+    timestamp: getTimestampByDate(transformedDate),
+  };
+  return transformedDateWithTimestamp;
 };
