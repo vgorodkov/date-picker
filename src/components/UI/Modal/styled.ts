@@ -24,7 +24,5 @@ export const ModalContent = styled.div<{ $isActive: boolean }>`
   background-color: white;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
   transition: 0.3s;
 `;

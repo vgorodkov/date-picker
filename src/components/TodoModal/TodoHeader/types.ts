@@ -1,5 +1,5 @@
 import { MonthDate } from '@/types/date';
 
-export interface TodoModalHeaderProps {
+export interface TodoHeaderProps {
   selectedDate: MonthDate | null;
 }

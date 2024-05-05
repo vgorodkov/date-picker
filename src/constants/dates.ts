@@ -1,3 +1,5 @@
+import { getTimestampByDate } from '@/utils/getTimestampByDate';
+
 export const CURRENT_DAY = new Date().getDate();
 
 export const CURRENT_YEAR = new Date().getFullYear();
@@ -22,3 +24,14 @@ export const MONTHS = [
 ];
 
 export const WEEKS_AMOUNT = 6;
+
+export const DEFAULT_DAY = {
+  day: CURRENT_DAY,
+  month: CURRENT_MONTH,
+  year: CURRENT_YEAR,
+};
+
+export const DEFAULT_DAY_WITH_TIMESTAMP = {
+  ...DEFAULT_DAY,
+  timestamp: getTimestampByDate(DEFAULT_DAY),
+};

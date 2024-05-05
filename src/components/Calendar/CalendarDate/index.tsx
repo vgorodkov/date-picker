@@ -9,6 +9,7 @@ export const CalendarDate = ({
   isSelected = false,
   onDateClick,
   rangeVariant,
+  withTodo,
 }: DateProps) => {
   const handleDateClick = () => {
     if (variant !== DateVariant.WEEKDAY && onDateClick) {
@@ -16,8 +17,14 @@ export const CalendarDate = ({
     }
   };
 
+  const hasTodo =
+    variant !== DateVariant.WEEKDAY
+      ? localStorage.getItem(`${date?.day}-${date?.month}-${date?.year}`)
+      : false;
+
   return (
     <StyledDate
+      $withTodo={withTodo && !!hasTodo}
       $range={rangeVariant}
       $variant={variant}
       $selected={isSelected}

@@ -10,6 +10,7 @@ export interface CalendarProps {
   showHolidays?: boolean;
   holidayTimestamps?: number[];
   calendarVariant?: CalendarVariant;
+  withTodo: boolean;
 }
 
 export interface CalendarState {
@@ -20,6 +21,7 @@ export interface CalendarState {
 
 export enum CalendarActionType {
   SET_DATE,
+  SET_WEEK,
   INCREMENT_MONTH,
   DECREMENT_MONTH,
   INCREMENT_WEEK,
@@ -27,8 +29,9 @@ export enum CalendarActionType {
 }
 
 export type CalendarAction =
+  | { type: CalendarActionType.SET_WEEK; payload: { weekIndex: number } }
   | { type: CalendarActionType.SET_DATE; payload: MonthDate }
   | { type: CalendarActionType.INCREMENT_MONTH }
   | { type: CalendarActionType.DECREMENT_MONTH }
-  | { type: CalendarActionType.INCREMENT_WEEK; payload: MonthDate[] }
+  | { type: CalendarActionType.INCREMENT_WEEK }
   | { type: CalendarActionType.DECREMENT_WEEK };

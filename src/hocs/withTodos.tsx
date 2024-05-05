@@ -22,7 +22,7 @@ export const withTodos = (WrappedComponent: FC<PickerProps>) => {
     return (
       <>
         <Modal isActive={isModalActive} closeModal={closeModal}>
-          <TodoModal selectedDate={selectedDate} />
+          {selectedDate && <TodoModal selectedDate={selectedDate} />}
         </Modal>
         <WrappedComponent {...props} addTodo={addTodo} />
       </>

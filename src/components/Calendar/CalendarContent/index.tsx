@@ -3,7 +3,6 @@ import { WEEK_DAYS } from '@/constants/dates';
 import { GridContainer } from '@/styles/common';
 import { DateVariant, MonthDate } from '@/types/date';
 import { RangeVariant } from '@/types/range';
-import { getTimestampByDate } from '@/utils/getTimestampByDate';
 
 import { CalendarContentProps } from './types';
 
@@ -15,10 +14,11 @@ export const CalendarContent = ({
   showHolidays,
   holidayTimestamps = [],
   dates,
+  withTodo,
 }: CalendarContentProps) => {
   const isDateSelected = (date: MonthDate) => {
     if (selectedDate) {
-      return getTimestampByDate(date) === getTimestampByDate(selectedDate);
+      return date.timestamp === selectedDate.timestamp;
     }
     return false;
   };
@@ -27,7 +27,11 @@ export const CalendarContent = ({
     if (!range) return undefined;
 
     const { start, end } = range;
-    const timestamp = getTimestampByDate(date);
+    const { timestamp } = date;
+
+    if (!timestamp) {
+      return undefined;
+    }
 
     if (timestamp === start) return RangeVariant.START;
     if (timestamp === end) return RangeVariant.END;
@@ -56,6 +60,7 @@ export const CalendarContent = ({
     <GridContainer>
       {dates.map((date) => (
         <CalendarDate
+          withTodo={withTodo}
           onDateClick={onDateClick}
           isSelected={isDateSelected(date)}
           date={date}
