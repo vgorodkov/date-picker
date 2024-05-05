@@ -1,14 +1,12 @@
-import { useEffect, useReducer } from 'react';
-
 import { CalendarContent } from '@/components/Calendar/CalendarContent';
 import { CalendarHeader } from '@/components/Calendar/CalendarHeader';
-import { CURRENT_DAY, CURRENT_MONTH, CURRENT_YEAR, MONTHS, WEEK_DAYS } from '@/constants/dates';
+import { MONTHS } from '@/constants/dates';
+import { useCalendarControl } from '@/hooks/useCalendarControl';
 import { getMonthDates } from '@/utils/getMonthDates';
 import { geetWeekDatesByWeekIndex } from '@/utils/getWeekDates';
 
-import { calendarReducer } from './reducer';
 import { CalendarContainer } from './styled';
-import { CalendarActionType, CalendarProps, CalendarState } from './types';
+import { CalendarProps } from './types';
 
 export const Calendar = ({
   selectedDate = null,
@@ -21,45 +19,16 @@ export const Calendar = ({
   showHolidays = false,
   holidayTimestamps = [],
   calendarVariant = 'month',
+  withTodo,
 }: CalendarProps) => {
-  const initialState: CalendarState = {
-    calendarMonth: selectedDate?.month ?? CURRENT_MONTH,
-    calendarYear: selectedDate?.year ?? CURRENT_YEAR,
-    weekIndex: Math.floor(CURRENT_DAY / WEEK_DAYS.length),
-  };
+  const { calendarMonth, calendarYear, weekIndex, selectNextPeriod, selectPrevPeriod } =
+    useCalendarControl(selectedDate, calendarVariant);
 
-  const [{ calendarMonth, calendarYear, weekIndex }, dispatch] = useReducer(
-    calendarReducer,
-    initialState
-  );
-
-  useEffect(() => {
-    if (selectedDate) {
-      dispatch({ type: CalendarActionType.SET_DATE, payload: selectedDate });
-    }
-  }, [selectedDate]);
-
-  const isWeekMode = calendarVariant === 'week';
   const calendarMonthName =
     calendarMonth === 0 ? MONTHS[calendarMonth] : MONTHS[+calendarMonth - 1];
+  const isWeekMode = calendarVariant === 'week';
   const monthDates = getMonthDates(calendarYear, calendarMonth, firstDayOfWeek);
   const dates = isWeekMode ? geetWeekDatesByWeekIndex(monthDates, weekIndex) : monthDates;
-
-  const selectNextPeriod = () => {
-    if (isWeekMode) {
-      dispatch({ type: CalendarActionType.INCREMENT_WEEK, payload: monthDates });
-    } else {
-      dispatch({ type: CalendarActionType.INCREMENT_MONTH });
-    }
-  };
-
-  const selectPrevPeriod = () => {
-    if (isWeekMode) {
-      dispatch({ type: CalendarActionType.DECREMENT_WEEK });
-    } else {
-      dispatch({ type: CalendarActionType.DECREMENT_MONTH });
-    }
-  };
 
   return (
     <CalendarContainer>
@@ -78,6 +47,7 @@ export const Calendar = ({
         range={range}
         showHolidays={showHolidays}
         holidayTimestamps={holidayTimestamps}
+        withTodo={withTodo}
       />
     </CalendarContainer>
   );

@@ -72,7 +72,6 @@ export const getMonthDates = (year: number, month: number, firstDayOfWeek: First
   const weekDays = getWeekDays(firstDayOfWeek);
 
   const datesFromPrevMonth = getDatesFromPrevMonth(firstDayOfWeek, month, year, weekDays.length);
-
   const datesFromCurrentMonth = getDatesFromCurrentMonth(month, year);
 
   const monthDatesLength = datesFromPrevMonth.length + datesFromCurrentMonth.length;

@@ -11,9 +11,12 @@ export const initialState: CalendarState = {
 
 export const calendarReducer = (state: CalendarState, action: CalendarAction): CalendarState => {
   switch (action.type) {
+    case CalendarActionType.SET_WEEK: {
+      const { weekIndex } = action.payload;
+      return { ...state, weekIndex };
+    }
     case CalendarActionType.SET_DATE: {
       const { month, year } = action.payload;
-
       return { ...state, calendarMonth: month, calendarYear: year };
     }
     case CalendarActionType.INCREMENT_MONTH: {
