@@ -2,9 +2,9 @@ import { useMemo, useState } from 'react';
 
 import { Calendar } from '@/components/Calendar';
 import { DateInput } from '@/components/DateInput';
+import { PickerWrapper } from '@/components/PickerWrapper';
 import { spacing } from '@/constants/spacing';
 import { FlexContainer, RelativeContainer } from '@/styles/common';
-import { GlobalStyle } from '@/styles/global';
 import { DATE_MASK, DateInputValue, MonthDate } from '@/types/date';
 import { PickerProps } from '@/types/picker';
 import { RangeVariant } from '@/types/range';
@@ -23,8 +23,7 @@ export const Rangepicker = ({
   const [startRange, setStartRange] = useState<DateInputValue>(DATE_MASK);
   const [endRange, setEndRange] = useState<DateInputValue>(DATE_MASK);
 
-  // change naming
-  const range = useMemo(() => {
+  const rangeTimestamps = useMemo(() => {
     const start = getTimestampByDate(transformDateInputToMonthDate(startRange));
     const end = getTimestampByDate(transformDateInputToMonthDate(endRange));
 
@@ -34,18 +33,18 @@ export const Rangepicker = ({
     };
   }, [startRange, endRange]);
 
-  const isValidRange = useMemo(() => {
-    return isRangeValid(range);
-  }, [range]);
+  const isRangeTimestampsValid = useMemo(() => {
+    return isRangeValid(rangeTimestamps);
+  }, [rangeTimestamps]);
 
   const onCalendarDateClick = (selectedDate: MonthDate) => {
     if (rangeVariant === RangeVariant.START) {
-      if (selectedDate.timestamp > range.end) {
+      if (selectedDate.timestamp > rangeTimestamps.end) {
         return;
       }
       setStartRange(selectedDate);
     } else if (rangeVariant === RangeVariant.END) {
-      if (selectedDate.timestamp < range.start) {
+      if (selectedDate.timestamp < rangeTimestamps.start) {
         return;
       }
       setEndRange(selectedDate);
@@ -63,11 +62,10 @@ export const Rangepicker = ({
   };
 
   return (
-    <>
-      <GlobalStyle />
+    <PickerWrapper>
       <FlexContainer $flexFlow="column nowrap" $gap={spacing.s}>
         <DateInput
-          isDateValid={isValidRange}
+          isDateValid={isRangeTimestampsValid}
           isSelected={rangeVariant === RangeVariant.START}
           label="From"
           value={startRange}
@@ -75,7 +73,7 @@ export const Rangepicker = ({
           onClick={onStartRangeInputClick}
         />
         <DateInput
-          isDateValid={isValidRange}
+          isDateValid={isRangeTimestampsValid}
           isSelected={rangeVariant === RangeVariant.END}
           label="To"
           value={endRange}
@@ -87,7 +85,7 @@ export const Rangepicker = ({
         {isCalendarOpen && (
           <Calendar
             withTodo={false}
-            range={isValidRange ? range : undefined}
+            range={isRangeTimestampsValid ? rangeTimestamps : undefined}
             calendarVariant={calendarVariant}
             onDateClick={onCalendarDateClick}
             firstDayOfWeek={firstDayOfWeek}
@@ -96,6 +94,6 @@ export const Rangepicker = ({
           />
         )}
       </RelativeContainer>
-    </>
+    </PickerWrapper>
   );
 };

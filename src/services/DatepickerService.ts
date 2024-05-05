@@ -1,4 +1,6 @@
 import { Datepicker } from '@/components/Datepicker';
+import { withHolidays, withTodos } from '@/hocs';
+import { CalendarDate } from '@/types/date';
 
 export class DatepickerService {
   private datePicker;
@@ -7,8 +9,12 @@ export class DatepickerService {
     this.datePicker = Datepicker;
   }
 
-  addDecorator(decorator) {
-    this.datePicker = decorator(this.datePicker);
+  addDecorator(decorator: typeof withTodos | typeof withHolidays, args?: CalendarDate[]) {
+    if (args) {
+      this.datePicker = decorator(this.datePicker, args);
+    } else {
+      this.datePicker = decorator(this.datePicker);
+    }
   }
 
   createDatepicker() {

@@ -29,10 +29,6 @@ export const CalendarContent = ({
     const { start, end } = range;
     const { timestamp } = date;
 
-    if (!timestamp) {
-      return undefined;
-    }
-
     if (timestamp === start) return RangeVariant.START;
     if (timestamp === end) return RangeVariant.END;
     if (start && end && timestamp > start && timestamp < end) return RangeVariant.INBETWEEN;

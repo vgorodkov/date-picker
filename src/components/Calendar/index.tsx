@@ -19,7 +19,7 @@ export const Calendar = ({
   showHolidays = false,
   holidayTimestamps = [],
   calendarVariant = 'month',
-  withTodo,
+  withTodo = false,
 }: CalendarProps) => {
   const { calendarMonth, calendarYear, weekIndex, selectNextPeriod, selectPrevPeriod } =
     useCalendarControl(selectedDate, calendarVariant);

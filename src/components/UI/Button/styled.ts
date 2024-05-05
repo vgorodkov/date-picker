@@ -9,10 +9,10 @@ const DISABLED = css`
   color: lightgray;
 `;
 
-export const StyledButton = styled.button<{ disabled: boolean; color?: string }>`
+export const StyledButton = styled.button<{ $disabled?: boolean; $color?: string }>`
   display: flex;
   flex-grow: 1;
-  background-color: ${(props) => props.color || colors.primary};
+  background-color: ${(props) => props.$color || colors.primary};
   border: none;
   color: ${colors.onPrimary};
   padding: ${spacing.s} ${spacing.m};
