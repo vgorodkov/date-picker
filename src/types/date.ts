@@ -13,6 +13,8 @@ export interface MonthDate {
   timestamp: number;
 }
 
+export interface CalendarDate extends Omit<MonthDate, 'timestamp'> {}
+
 export interface DateInputValue {
   day: string | number;
   month: string | number;
@@ -25,9 +27,7 @@ export interface Weekday {
 
 export const DATE_MASK = { day: 'DD', month: 'MM', year: 'YYYY' };
 
-interface DateLimitDate extends Omit<MonthDate, 'timestamp'> {}
-
 export interface DateLimit {
-  min: DateLimitDate;
-  max: DateLimitDate;
+  min: CalendarDate;
+  max: CalendarDate;
 }
