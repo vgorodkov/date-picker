@@ -1,3 +1,5 @@
+export { Datepicker } from '@/components/Datepicker';
+export { Rangepicker } from '@/components/Rangepicker';
 export { withHolidays, withTodos } from '@/hocs';
-export { DatepickerService } from '@/services';
 export { RangepickerService } from '@/services';
+export { DatepickerService } from '@/services';
