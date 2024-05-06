@@ -31,7 +31,7 @@ export const Calendar = ({
   const dates = isWeekMode ? geetWeekDatesByWeekIndex(monthDates, weekIndex) : monthDates;
 
   return (
-    <CalendarContainer>
+    <CalendarContainer data-testid="calendar-component">
       <CalendarHeader
         selectNextPeriod={selectNextPeriod}
         selectPrevPeriod={selectPrevPeriod}

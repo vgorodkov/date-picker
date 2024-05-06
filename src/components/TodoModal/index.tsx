@@ -31,11 +31,12 @@ export const TodoModal = ({ selectedDate = DEFAULT_DAY_WITH_TIMESTAMP }: TodoMod
   };
 
   return (
-    <TodoModalContainer $flexFlow="column nowrap" $gap={spacing.l}>
+    <TodoModalContainer $flexFlow="column nowrap" $gap={spacing.l} data-testid="todo-modal">
       <TodoHeader selectedDate={selectedDate} />
       <TodoList todos={todos} />
       <FlexContainer $flexFlow="column nowrap" $gap={spacing.l}>
         <Input
+          data-testid="todo-modal-input"
           label="Todo"
           title="Add todo"
           placeholder="Enter todo"
@@ -43,8 +44,13 @@ export const TodoModal = ({ selectedDate = DEFAULT_DAY_WITH_TIMESTAMP }: TodoMod
           onChange={onTodoInputChange}
         />
         <FlexContainer $gap={spacing.s}>
-          <Button color={colors.disabledHolidayText} title="Clear todos" onClick={clearTodos} />
-          <Button title="Save todo" onClick={saveTodo} />
+          <Button
+            data-testid="todo-modal-clear-btn"
+            color={colors.disabledHolidayText}
+            title="Clear todos"
+            onClick={clearTodos}
+          />
+          <Button data-testid="todo-modal-add-btn" title="Save todo" onClick={saveTodo} />
         </FlexContainer>
       </FlexContainer>
     </TodoModalContainer>
