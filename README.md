@@ -7,7 +7,7 @@ A library to work with calendar
 Install with npm
 
 ```bash
-  @vgorodkov/date-picker
+npm install @vgorodkov/date-picker
 ```
 
 ## Usage/Examples
