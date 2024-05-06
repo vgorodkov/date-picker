@@ -1,22 +1,28 @@
 name: CI
-
 on:
   push:
-    branches:
-      - dev
-
+    branches: [main, dev]
+  pull_request:
+    branches: [main, dev]
 jobs:
-  build:
+  init:
     runs-on: ubuntu-latest
-
+    strategy:
+      matrix:
+        node-version: [20.x]
     steps:
-    - uses: actions/checkout@v2
-
-    - name: Install dependencies
-      run: npm install
-
-    - name: Run linter
-      run: npm run lint  
-
-    - name: Run tests
-      run: npm test 
+      - uses: actions/checkout@v3
+      - name: Starting Node.js ${{matrix.node-version}}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{matrix.node-version}}
+      - name: Install modules
+        run: npm install
+      - name: Run Eslint
+        run: npm run eslint
+      - name: Run Unit tests
+        run: npm run test:unit
+      - name: Run Integration tests
+        run: npm run test:integration
+      - name: Build project
+        run: npm run build
