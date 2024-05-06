@@ -25,8 +25,6 @@ export interface Weekday {
   day: string;
 }
 
-export const DATE_MASK = { day: 'DD', month: 'MM', year: 'YYYY' };
-
 export interface DateLimit {
   min: CalendarDate;
   max: CalendarDate;

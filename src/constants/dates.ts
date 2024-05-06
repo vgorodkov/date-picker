@@ -35,3 +35,5 @@ export const DEFAULT_DAY_WITH_TIMESTAMP = {
   ...DEFAULT_DAY,
   timestamp: getTimestampByDate(DEFAULT_DAY),
 };
+
+export const DATE_MASK = { day: 'DD', month: 'MM', year: 'YYYY' };
