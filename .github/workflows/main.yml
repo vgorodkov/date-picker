@@ -19,7 +19,7 @@ jobs:
       - name: Install modules
         run: npm install
       - name: Run Eslint
-        run: npm run eslint
+        run: npm run lint
       - name: Run Unit tests
         run: npm run test:unit
       - name: Run Integration tests
