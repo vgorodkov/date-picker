@@ -4,7 +4,6 @@ export enum DateVariant {
   WEEKDAY = 'weekday',
   HOLIDAY = 'holiday',
   DISABLED_HOLIDAY = 'disabledHoliday',
-  WITH_TODO = 'withTodo',
 }
 export interface MonthDate {
   day: number;
