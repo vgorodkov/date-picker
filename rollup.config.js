@@ -24,7 +24,7 @@ export default [
     ],
     plugins: [
       typescript({
-        exclude: ['**/__stories__', '**/*.stories.ts'],
+        exclude: ['**/__stories__', '**/*.stories.ts', '**/*.test.ts', '**/*.test.tsx'],
       }),
       peerDepsExternal(),
       resolve(),

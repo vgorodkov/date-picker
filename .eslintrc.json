@@ -47,13 +47,9 @@
     "import/no-extraneous-dependencies": [
       "error",
       {
-        "devDependencies": [
-          "**/*.stories.*",
-          "**/.storybook/**/*.*",
-          "**/*.styled.ts",
-          "**/*.config.js"
-        ],
-        "peerDependencies": true
+        "devDependencies": true,
+        "peerDependencies": true,
+        "packageDir": ["./"]
       }
     ],
     "react/jsx-props-no-spreading": [

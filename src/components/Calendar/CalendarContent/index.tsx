@@ -53,9 +53,10 @@ export const CalendarContent = ({
   };
 
   return (
-    <GridContainer>
-      {dates.map((date) => (
+    <GridContainer data-testid="calendar-content">
+      {dates.map((date, index) => (
         <CalendarDate
+          data-testid={`calendar-date-${index}`}
           withTodo={withTodo}
           onDateClick={onDateClick}
           isSelected={isDateSelected(date)}

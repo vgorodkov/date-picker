@@ -29,6 +29,7 @@ export const CalendarDate = ({
 
   return (
     <StyledDate
+      data-testid={`calendar-date-${date.day}-${date.month}`}
       $withTodo={withTodo && isDateHasTodo()}
       $range={rangeVariant}
       $variant={variant}
