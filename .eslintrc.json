@@ -47,7 +47,12 @@
     "import/no-extraneous-dependencies": [
       "error",
       {
-        "devDependencies": ["**/*.stories.*", "**/.storybook/**/*.*", "**/*.styled.ts"],
+        "devDependencies": [
+          "**/*.stories.*",
+          "**/.storybook/**/*.*",
+          "**/*.styled.ts",
+          "**/*.config.js"
+        ],
         "peerDependencies": true
       }
     ],
@@ -55,6 +60,12 @@
       "error",
       {
         "custom": "ignore"
+      }
+    ],
+    "@typescript-eslint/no-var-requires": [
+      "error",
+      {
+        "allow": ["/package\\.json$"]
       }
     ]
   }
