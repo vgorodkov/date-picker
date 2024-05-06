@@ -9,7 +9,7 @@ import { useInputCursorSelection } from '@/hooks/useInputCursorSelection';
 import { FlexContainer } from '@/styles/common';
 import { DateInputValue } from '@/types/date';
 import { formatDateInput } from '@/utils/formatDateInput';
-import { getMonthLength } from '@/utils/getMonthLenght';
+import { getMonthLength } from '@/utils/getMonthLength';
 import { validateNumberInRange } from '@/utils/validateNumberInRange';
 import { zeroPad } from '@/utils/zeroPad';
 
