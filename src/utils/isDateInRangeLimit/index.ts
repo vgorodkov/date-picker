@@ -1,8 +1,7 @@
-import { DateLimit, MonthDate } from '@/types/date';
+import { CalendarDate, DateLimit } from '@/types/date';
+import { getTimestampByDate } from '@/utils/getTimestampByDate';
 
-import { getTimestampByDate } from './getTimestampByDate';
-
-export const isDateInRangeLimit = (dateInput: MonthDate, dateLimit: DateLimit) => {
+export const isDateInRangeLimit = (dateInput: CalendarDate, dateLimit: DateLimit) => {
   if (!dateInput) {
     return false;
   }
