@@ -4,8 +4,16 @@ import { CURRENT_MONTH, CURRENT_YEAR } from '@/constants/dates';
 import { MonthDate } from '@/types/date';
 import { CalendarVariant } from '@/types/picker';
 
+import {
+  decrementMonth,
+  decrementWeek,
+  incrementMonth,
+  incrementWeek,
+  setDate,
+  setWeek,
+} from './actions';
 import { calendarReducer } from './reducer';
-import { CalendarActionType, CalendarState } from './types';
+import { CalendarState } from './types';
 import { getWeekIndexByDay } from './utils';
 
 export const useCalendarControl = (
@@ -27,29 +35,24 @@ export const useCalendarControl = (
 
   useEffect(() => {
     if (selectedDate) {
-      dispatch({ type: CalendarActionType.SET_DATE, payload: selectedDate });
-      dispatch({
-        type: CalendarActionType.SET_WEEK,
-        payload: {
-          weekIndex: getWeekIndexByDay(selectedDate?.day),
-        },
-      });
+      dispatch(setDate(selectedDate));
+      dispatch(setWeek(getWeekIndexByDay(selectedDate?.day)));
     }
   }, [selectedDate]);
 
   const selectNextPeriod = () => {
     if (isWeekMode) {
-      dispatch({ type: CalendarActionType.INCREMENT_WEEK });
+      dispatch(incrementWeek());
     } else {
-      dispatch({ type: CalendarActionType.INCREMENT_MONTH });
+      dispatch(incrementMonth());
     }
   };
 
   const selectPrevPeriod = () => {
     if (isWeekMode) {
-      dispatch({ type: CalendarActionType.DECREMENT_WEEK });
+      dispatch(decrementWeek());
     } else {
-      dispatch({ type: CalendarActionType.DECREMENT_MONTH });
+      dispatch(decrementMonth());
     }
   };
 
