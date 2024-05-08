@@ -1,32 +1,23 @@
 import styled, { css } from 'styled-components';
 
-import { colors } from '@/constants/colors';
-import { spacing } from '@/constants/spacing';
-
-export const InputLabel = styled.div`
-  font-size: 15px;
-  font-weight: 600;
-  color: ${colors.primaryText};
-`;
-
 export const InputContainer = styled.div<{ $isSelected?: boolean; $isDateValid?: boolean }>`
   display: flex;
-  border: 1px solid ${colors.border};
+  border: 1px solid ${({ theme }) => theme.colors.border};
   align-items: center;
-  padding: ${spacing.s} ${spacing.m};
-  gap: ${spacing.s};
+  padding: ${({ theme }) => theme.spacing.s} ${({ theme }) => theme.spacing.m};
+  gap: ${({ theme }) => theme.spacing.s};
   border-radius: 8px;
-  ${(props) =>
-    props.$isSelected
+  ${({ $isSelected, $isDateValid, theme }) =>
+    $isSelected
       ? css`
-          border-color: ${props.$isDateValid ? colors.primary : colors.holidayText};
+          border-color: ${$isDateValid ? theme.colors.primary : theme.colors.holidayText};
         `
       : css`
-          border-color: ${colors.border};
+          border-color: ${theme.colors.border};
         `}
 `;
 
-export const StyledInput = styled.input`
+export const InputField = styled.input`
   &::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;

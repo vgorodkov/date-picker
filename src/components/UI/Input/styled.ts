@@ -1,20 +1,18 @@
 import styled from 'styled-components';
 
-import { colors } from '@/constants/colors';
-import { spacing } from '@/constants/spacing';
-
-export const StyledInput = styled.input`
-  border: 1px solid ${colors.border};
-  padding: ${spacing.s} ${spacing.m};
-  gap: ${spacing.s};
+export const InputField = styled.input`
+  border: 1px solid ${({ theme }) => theme.colors.border};
+  padding: ${({ theme }) => theme.spacing.s} ${({ theme }) => theme.spacing.m};
+  gap: ${({ theme }) => theme.spacing.s};
   border-radius: 8px;
   &:focus {
     outline: none;
-    border-color: ${colors.primary};
+    border-color: ${({ theme }) => theme.colors.primary};
   }
 `;
 
-export const StyledLabel = styled.label`
-  color: ${colors.disabledText};
-  font-weight: 700;
+export const InputLabel = styled.div`
+  font-size: 15px;
+  font-weight: 600;
+  color: ${({ theme }) => theme.colors.primaryText};
 `;
