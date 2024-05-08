@@ -1,14 +1,14 @@
 import { spacing } from '@/constants/spacing';
-import { FlexContainer } from '@/styles/common';
+import { FlexContainer } from '@/styles/containers';
 
-import { StyledInput, StyledLabel } from './styled';
+import { InputField, InputLabel } from './styled';
 import { InputProps } from './types';
 
 export const Input = ({ label, ...props }: InputProps) => {
   return (
     <FlexContainer $flexFlow="column nowrap" $gap={spacing.xs}>
-      <StyledLabel>{label}</StyledLabel>
-      <StyledInput name="input" type="text" {...props} />
+      <InputLabel>{label}</InputLabel>
+      <InputField name="input" type="text" {...props} />
     </FlexContainer>
   );
 };
