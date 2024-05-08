@@ -8,7 +8,6 @@ import url from '@rollup/plugin-url';
 import path from 'path';
 import dts from 'rollup-plugin-dts';
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
-import postcss from 'rollup-plugin-postcss';
 
 const packageJson = require('./package.json');
 
@@ -31,16 +30,9 @@ export default [
       commonjs(),
       terser(),
       image(),
-      postcss({
-        extract: false,
-        modules: true,
-        minimize: true,
-        use: ['sass'],
-      }),
       alias({
         entries: [{ find: '@', replacement: path.resolve('./src') }],
       }),
-
       url({
         include: ['**/*.woff', '**/*.woff2', '**/*.ttf'],
         limit: Infinity,
@@ -52,6 +44,6 @@ export default [
     input: 'dist/cjs/types/src/index.d.ts',
     output: [{ file: 'dist/index.d.ts', format: 'esm' }],
     plugins: [dts.default()],
-    external: [/\.(css|scss)$/],
+    external: [/\.(css)$/],
   },
 ];
