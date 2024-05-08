@@ -3,25 +3,35 @@ import styled, { css } from 'styled-components';
 import { DateVariant } from '@/types/date';
 import { RangeVariant } from '@/types/range';
 
-const variantStyles = {
-  [DateVariant.DISABLED]: css`
-    color: ${({ theme }) => theme.colors.disabledText};
-  `,
-  [DateVariant.DEFAULT]: css``,
-  [DateVariant.WEEKDAY]: css`
-    font-size: 14px;
-    font-weight: 900;
-    cursor: default;
-    &:hover {
-      background-color: ${({ theme }) => theme.colors.onPrimary};
-    }
-  `,
-  [DateVariant.HOLIDAY]: css`
-    color: ${({ theme }) => theme.colors.holidayText};
-  `,
-  [DateVariant.DISABLED_HOLIDAY]: css`
-    color: ${({ theme }) => theme.colors.disabledHolidayText};
-  `,
+const getVariantStyle = (variant: DateVariant, holidayColor?: string) => {
+  switch (variant) {
+    case DateVariant.DEFAULT:
+      return '';
+    case DateVariant.DISABLED:
+      return css`
+        color: ${({ theme }) => theme.colors.disabledText};
+      `;
+    case DateVariant.WEEKDAY:
+      return css`
+        font-size: 14px;
+        font-weight: 900;
+        cursor: default;
+        &:hover {
+          background-color: ${({ theme }) => theme.colors.onPrimary};
+        }
+      `;
+    case DateVariant.HOLIDAY:
+      return css`
+        color: ${({ theme }) => holidayColor || theme.colors.holidayText};
+      `;
+    case DateVariant.DISABLED_HOLIDAY:
+      return css`
+        color: ${({ theme }) => holidayColor || theme.colors.holidayText};
+        opacity: 0.5;
+      `;
+    default:
+      return '';
+  }
 };
 
 const rangeStyles = {
@@ -47,6 +57,7 @@ export const Date = styled.div<{
   selected: boolean;
   range?: RangeVariant;
   withTodo?: boolean;
+  holidayColor?: string;
 }>`
   display: flex;
   justify-content: center;
@@ -63,7 +74,7 @@ export const Date = styled.div<{
     background-color: ${({ theme }) => theme.colors.border};
   }
 
-  ${({ variant }) => variantStyles[variant || DateVariant.DEFAULT]}
+  ${({ variant, holidayColor }) => getVariantStyle(variant, holidayColor)}
   ${({ range }) => (range ? rangeStyles[range] : '')}
 
   ${(props) =>
@@ -72,6 +83,7 @@ export const Date = styled.div<{
       background-color: ${({ theme }) => theme.colors.primary};
       color: ${({ theme }) => theme.colors.onPrimary};
     `}
+
     ${(props) =>
     props.withTodo &&
     css`
