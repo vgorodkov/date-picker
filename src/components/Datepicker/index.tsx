@@ -2,9 +2,9 @@ import { useMemo, useState } from 'react';
 
 import { Calendar } from '@/components/Calendar';
 import { DateInput } from '@/components/DateInput';
-import { PickerWrapper } from '@/components/PickerWrapper';
+import { Wrapper } from '@/components/Wrapper';
 import { DATE_MASK } from '@/constants/dates';
-import { RelativeContainer } from '@/styles/common';
+import { PickerContainer, RelativeContainer } from '@/styles/containers';
 import { DateInputValue, MonthDate } from '@/types/date';
 import { PickerProps } from '@/types/picker';
 import { isDateInRangeLimit } from '@/utils/isDateInRangeLimit';
@@ -14,11 +14,11 @@ import { transformDateInputToMonthDate } from '@/utils/transformDateInputToMonth
 import { DEFAULT_DATELIMIT } from './constants';
 
 export const Datepicker = ({
-  firstDayOfWeek,
-  showHolidays,
-  holidayTimestamps,
+  firstDayOfWeek = 'Mo',
+  showHolidays = false,
+  holidayTimestamps = [],
   addTodo,
-  calendarVariant,
+  calendarVariant = 'month',
   selectedStartDate = null,
   dateLimit = DEFAULT_DATELIMIT,
 }: PickerProps) => {
@@ -46,28 +46,30 @@ export const Datepicker = ({
   };
 
   return (
-    <PickerWrapper>
-      <DateInput
-        isDateValid={isDateValid}
-        isSelected={isCalendarOpen}
-        label="Date"
-        onClick={openCalendar}
-        value={dateInput}
-        setValue={setDateInput}
-      />
-      <RelativeContainer>
-        {isCalendarOpen && (
-          <Calendar
-            withTodo={!!addTodo}
-            firstDayOfWeek={firstDayOfWeek}
-            selectedDate={isDateValid ? transformDateInputToMonthDate(dateInput) : null}
-            onDateClick={onDateClick}
-            showHolidays={showHolidays}
-            holidayTimestamps={holidayTimestamps}
-            calendarVariant={calendarVariant}
-          />
-        )}
-      </RelativeContainer>
-    </PickerWrapper>
+    <Wrapper>
+      <PickerContainer>
+        <DateInput
+          isDateValid={isDateValid}
+          isSelected={isCalendarOpen}
+          label="Date"
+          onClick={openCalendar}
+          value={dateInput}
+          setValue={setDateInput}
+        />
+        <RelativeContainer>
+          {isCalendarOpen && (
+            <Calendar
+              withTodo={!!addTodo}
+              firstDayOfWeek={firstDayOfWeek}
+              selectedDate={isDateValid ? transformDateInputToMonthDate(dateInput) : null}
+              onDateClick={onDateClick}
+              showHolidays={showHolidays}
+              holidayTimestamps={holidayTimestamps}
+              calendarVariant={calendarVariant}
+            />
+          )}
+        </RelativeContainer>
+      </PickerContainer>
+    </Wrapper>
   );
 };
