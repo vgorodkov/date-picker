@@ -28,6 +28,12 @@ const meta = {
         category: 'Calendar',
       },
     },
+    holidayColor: {
+      description: 'Color of highlighted holidays  on the calendar',
+      table: {
+        category: 'Holidays',
+      },
+    },
     showHolidays: {
       description: 'Highlight holidays  on the calendar',
       control: 'boolean',

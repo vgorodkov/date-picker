@@ -21,6 +21,7 @@ export const Datepicker = ({
   calendarVariant = 'month',
   selectedStartDate = null,
   dateLimit = DEFAULT_DATELIMIT,
+  holidayColor,
 }: PickerProps) => {
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
   const [dateInput, setDateInput] = useState<DateInputValue>(selectedStartDate ?? DATE_MASK);
@@ -65,6 +66,7 @@ export const Datepicker = ({
               onDateClick={onDateClick}
               showHolidays={showHolidays}
               holidayTimestamps={holidayTimestamps}
+              holidayColor={holidayColor}
               calendarVariant={calendarVariant}
             />
           )}

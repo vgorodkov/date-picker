@@ -11,6 +11,7 @@ export const CalendarDate = ({
   onDateClick,
   rangeVariant,
   withTodo,
+  holidayColor,
 }: DateProps) => {
   const handleDateClick = () => {
     if (variant !== DateVariant.WEEKDAY && onDateClick) {
@@ -35,6 +36,7 @@ export const CalendarDate = ({
       variant={variant}
       selected={isSelected}
       onClick={handleDateClick}
+      holidayColor={holidayColor}
     >
       {date.day}
     </Date>

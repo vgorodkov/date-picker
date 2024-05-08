@@ -8,4 +8,5 @@ export interface DateProps {
   onDateClick?: (date: MonthDate) => void;
   rangeVariant?: RangeVariant;
   withTodo: boolean;
+  holidayColor?: string;
 }

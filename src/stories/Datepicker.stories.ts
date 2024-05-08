@@ -38,6 +38,12 @@ const meta = {
         category: 'Holidays',
       },
     },
+    holidayColor: {
+      description: 'Color of highlighted holidays  on the calendar',
+      table: {
+        category: 'Holidays',
+      },
+    },
     holidayTimestamps: {
       description: 'Set holidays timestamps of dates to highlight',
       control: false,

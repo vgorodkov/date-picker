@@ -8,6 +8,7 @@ export interface CalendarContentProps {
   range?: Range;
   showHolidays?: boolean;
   holidayTimestamps?: number[];
+  holidayColor?: string;
   dates: MonthDate[];
   withTodo: boolean;
 }

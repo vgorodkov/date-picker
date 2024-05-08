@@ -13,6 +13,7 @@ export const CalendarContent = ({
   range,
   showHolidays,
   holidayTimestamps = [],
+  holidayColor,
   dates,
   withTodo,
 }: CalendarContentProps) => {
@@ -20,6 +21,7 @@ export const CalendarContent = ({
     <GridContainer data-testid="calendar-content">
       {dates.map((date, index) => (
         <CalendarDate
+          holidayColor={holidayColor}
           data-testid={`calendar-date-${index}`}
           withTodo={withTodo}
           onDateClick={onDateClick}

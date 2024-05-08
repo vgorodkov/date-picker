@@ -9,6 +9,7 @@ export interface CalendarProps {
   range?: Range;
   showHolidays?: boolean;
   holidayTimestamps?: number[];
+  holidayColor?: string;
   calendarVariant?: CalendarVariant;
   withTodo: boolean;
 }

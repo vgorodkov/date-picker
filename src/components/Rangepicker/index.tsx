@@ -18,6 +18,7 @@ export const Rangepicker = ({
   showHolidays,
   holidayTimestamps,
   calendarVariant,
+  holidayColor,
 }: PickerProps) => {
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
   const [rangeVariant, setRangeVariant] = useState<RangeVariant | null>(null);
@@ -93,6 +94,7 @@ export const Rangepicker = ({
               firstDayOfWeek={firstDayOfWeek}
               showHolidays={showHolidays}
               holidayTimestamps={holidayTimestamps}
+              holidayColor={holidayColor}
             />
           )}
         </RelativeContainer>
