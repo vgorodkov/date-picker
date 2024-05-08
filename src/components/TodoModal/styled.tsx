@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { FlexContainer } from '@/styles/common';
+import { FlexContainer } from '@/styles/containers';
 
 export const TodoModalContainer = styled(FlexContainer)`
   width: 300px;

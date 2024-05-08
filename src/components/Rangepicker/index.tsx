@@ -2,10 +2,10 @@ import { useMemo, useState } from 'react';
 
 import { Calendar } from '@/components/Calendar';
 import { DateInput } from '@/components/DateInput';
-import { PickerWrapper } from '@/components/PickerWrapper';
+import { Wrapper } from '@/components/Wrapper';
 import { DATE_MASK } from '@/constants/dates';
 import { spacing } from '@/constants/spacing';
-import { FlexContainer, RelativeContainer } from '@/styles/common';
+import { FlexContainer, PickerContainer, RelativeContainer } from '@/styles/containers';
 import { DateInputValue, MonthDate } from '@/types/date';
 import { PickerProps } from '@/types/picker';
 import { RangeVariant } from '@/types/range';
@@ -63,38 +63,40 @@ export const Rangepicker = ({
   };
 
   return (
-    <PickerWrapper>
-      <FlexContainer $flexFlow="column nowrap" $gap={spacing.s}>
-        <DateInput
-          isDateValid={isRangeTimestampsValid}
-          isSelected={rangeVariant === RangeVariant.START}
-          label="From"
-          value={startRange}
-          setValue={setStartRange}
-          onClick={onStartRangeInputClick}
-        />
-        <DateInput
-          isDateValid={isRangeTimestampsValid}
-          isSelected={rangeVariant === RangeVariant.END}
-          label="To"
-          value={endRange}
-          setValue={setEndRange}
-          onClick={onEndRangeInputClick}
-        />
-      </FlexContainer>
-      <RelativeContainer>
-        {isCalendarOpen && (
-          <Calendar
-            withTodo={false}
-            range={isRangeTimestampsValid ? rangeTimestamps : undefined}
-            calendarVariant={calendarVariant}
-            onDateClick={onCalendarDateClick}
-            firstDayOfWeek={firstDayOfWeek}
-            showHolidays={showHolidays}
-            holidayTimestamps={holidayTimestamps}
+    <Wrapper>
+      <PickerContainer>
+        <FlexContainer $flexFlow="column nowrap" $gap={spacing.s}>
+          <DateInput
+            isDateValid={isRangeTimestampsValid}
+            isSelected={rangeVariant === RangeVariant.START}
+            label="From"
+            value={startRange}
+            setValue={setStartRange}
+            onClick={onStartRangeInputClick}
           />
-        )}
-      </RelativeContainer>
-    </PickerWrapper>
+          <DateInput
+            isDateValid={isRangeTimestampsValid}
+            isSelected={rangeVariant === RangeVariant.END}
+            label="To"
+            value={endRange}
+            setValue={setEndRange}
+            onClick={onEndRangeInputClick}
+          />
+        </FlexContainer>
+        <RelativeContainer>
+          {isCalendarOpen && (
+            <Calendar
+              withTodo={false}
+              range={isRangeTimestampsValid ? rangeTimestamps : undefined}
+              calendarVariant={calendarVariant}
+              onDateClick={onCalendarDateClick}
+              firstDayOfWeek={firstDayOfWeek}
+              showHolidays={showHolidays}
+              holidayTimestamps={holidayTimestamps}
+            />
+          )}
+        </RelativeContainer>
+      </PickerContainer>
+    </Wrapper>
   );
 };

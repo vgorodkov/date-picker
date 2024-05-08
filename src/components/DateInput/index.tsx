@@ -2,11 +2,12 @@ import { KeyboardEvent, useEffect, useRef } from 'react';
 
 import calendarIcon from '@/assets/icons/calendar.svg';
 import clearIcon from '@/assets/icons/clear.svg';
-import { Icon } from '@/components/UI';
+import { InputLabel } from '@/components/UI/Input/styled';
 import { DATE_MASK, MONTHS } from '@/constants/dates';
 import { spacing } from '@/constants/spacing';
 import { useInputCursorSelection } from '@/hooks/useInputCursorSelection';
-import { FlexContainer } from '@/styles/common';
+import { FlexContainer } from '@/styles/containers';
+import { Icon } from '@/styles/icon';
 import { DateInputValue } from '@/types/date';
 import { formatDateInput } from '@/utils/formatDateInput';
 import { getMonthLength } from '@/utils/getMonthLength';
@@ -14,7 +15,7 @@ import { validateNumberInRange } from '@/utils/validateNumberInRange';
 import { zeroPad } from '@/utils/zeroPad';
 
 import { BACKSPACE_KEY, cursorRanges, DIGITS_REGEXP } from './constants';
-import { InputContainer, InputLabel, StyledInput } from './styled';
+import { InputContainer, InputField } from './styled';
 import { DateInputProps } from './types';
 
 export const DateInput = ({
@@ -136,7 +137,7 @@ export const DateInput = ({
         onClick={onClick}
       >
         <Icon src={calendarIcon} />
-        <StyledInput
+        <InputField
           data-testid="date-input"
           onBlur={onInputBlur}
           readOnly

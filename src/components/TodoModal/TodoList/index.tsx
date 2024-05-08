@@ -1,4 +1,4 @@
-import { FlexContainer } from '@/styles/common';
+import { FlexContainer } from '@/styles/containers';
 
 import { TodoListProps } from './types';
 

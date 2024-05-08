@@ -3,9 +3,9 @@ import { useMemo } from 'react';
 import nextSvg from '@/assets/icons/next.svg';
 import prevSvg from '@/assets/icons/prev.svg';
 import { CalendarDate } from '@/components/Calendar/CalendarDate';
-import { Icon } from '@/components/UI/Icon';
 import { spacing } from '@/constants/spacing';
-import { FlexContainer, GridContainer } from '@/styles/common';
+import { FlexContainer, GridContainer } from '@/styles/containers';
+import { Icon } from '@/styles/icon';
 import { DateVariant } from '@/types/date';
 import { getWeekDays } from '@/utils/getWeekDays';
 

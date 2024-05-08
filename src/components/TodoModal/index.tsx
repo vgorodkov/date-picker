@@ -1,11 +1,12 @@
 import { ChangeEvent, useState } from 'react';
 
-import { Button, Input } from '@/components/UI';
+import { Input } from '@/components/UI';
 import { colors } from '@/constants/colors';
 import { DEFAULT_DAY_WITH_TIMESTAMP } from '@/constants/dates';
 import { spacing } from '@/constants/spacing';
 import { useTodosFromStorageByDate } from '@/hooks/useTodosFromStorageByDate';
-import { FlexContainer } from '@/styles/common';
+import { Button } from '@/styles/button';
+import { FlexContainer } from '@/styles/containers';
 
 import { TODO_LENGTH_LIMIT } from './constants';
 import { TodoModalContainer } from './styled';
@@ -47,10 +48,13 @@ export const TodoModal = ({ selectedDate = DEFAULT_DAY_WITH_TIMESTAMP }: TodoMod
           <Button
             data-testid="todo-modal-clear-btn"
             color={colors.disabledHolidayText}
-            title="Clear todos"
             onClick={clearTodos}
-          />
-          <Button data-testid="todo-modal-add-btn" title="Save todo" onClick={saveTodo} />
+          >
+            Clear todos
+          </Button>
+          <Button data-testid="todo-modal-add-btn" onClick={saveTodo}>
+            Save todo
+          </Button>
         </FlexContainer>
       </FlexContainer>
     </TodoModalContainer>

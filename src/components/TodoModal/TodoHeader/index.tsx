@@ -1,4 +1,4 @@
-import { FlexContainer } from '@/styles/common';
+import { FlexContainer } from '@/styles/containers';
 import { zeroPad } from '@/utils/zeroPad';
 
 import { TodoHeaderProps } from './types';
