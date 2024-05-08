@@ -1,4 +1,5 @@
-import { DateVariant, MonthDate, Weekday } from '@/types/date';
+import { DateVariant, MonthDate } from '@/types/date';
+import { getDateTestId } from '@/utils/getDateTestId';
 import { isDateHasTodo } from '@/utils/isDateHasTodo';
 
 import { Date } from './styled';
@@ -19,18 +20,9 @@ export const CalendarDate = ({
     }
   };
 
-  const getDateTestId = () => {
-    if (variant === DateVariant.WEEKDAY) {
-      const { day } = date as Weekday;
-      return `calendar-date-${day}`;
-    }
-    const { day, month } = date as MonthDate;
-    return `calendar-date-${day}-${month}`;
-  };
-
   return (
     <Date
-      data-testid={getDateTestId()}
+      data-testid={getDateTestId(date, variant)}
       withTodo={withTodo && isDateHasTodo(date as MonthDate, variant)}
       range={rangeVariant}
       variant={variant}
