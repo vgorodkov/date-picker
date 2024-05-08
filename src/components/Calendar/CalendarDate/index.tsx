@@ -1,6 +1,7 @@
-import { DateVariant, MonthDate } from '@/types/date';
+import { DateVariant, MonthDate, Weekday } from '@/types/date';
+import { isDateHasTodo } from '@/utils/isDateHasTodo';
 
-import { StyledDate } from './styled';
+import { Date } from './styled';
 import { DateProps } from './types';
 
 export const CalendarDate = ({
@@ -17,26 +18,25 @@ export const CalendarDate = ({
     }
   };
 
-  const isDateHasTodo = () => {
+  const getDateTestId = () => {
     if (variant === DateVariant.WEEKDAY) {
-      return false;
+      const { day } = date as Weekday;
+      return `calendar-date-${day}`;
     }
-
-    const { day, month, year } = date as MonthDate;
-
-    return !!localStorage.getItem(`${day}-${month}-${year}`);
+    const { day, month } = date as MonthDate;
+    return `calendar-date-${day}-${month}`;
   };
 
   return (
-    <StyledDate
-      data-testid={`calendar-date-${date.day}-${date.month}`}
-      $withTodo={withTodo && isDateHasTodo()}
+    <Date
+      data-testid={getDateTestId()}
+      $withTodo={withTodo && isDateHasTodo(date as MonthDate, variant)}
       $range={rangeVariant}
       $variant={variant}
       $selected={isSelected}
       onClick={handleDateClick}
     >
       {date.day}
-    </StyledDate>
+    </Date>
   );
 };
