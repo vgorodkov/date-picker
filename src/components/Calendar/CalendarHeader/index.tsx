@@ -24,8 +24,8 @@ export const CalendarHeader = ({
   }, [firstDayOfWeek]);
 
   return (
-    <FlexContainer $flexFlow="column nowrap" $alignItems="space-between" $gap={spacing.xs}>
-      <FlexContainer $justifyContent="space-between">
+    <FlexContainer flexFlow="column nowrap" alignItems="space-between" gap={spacing.xs}>
+      <FlexContainer justifyContent="space-between">
         <Icon onClick={selectPrevPeriod} src={prevSvg} alt="prev" title="prev month" />
         <DatepickerTitle>
           {calendarMonthName} {calendarYear}

@@ -43,10 +43,10 @@ const rangeStyles = {
 };
 
 export const Date = styled.div<{
-  $variant: DateVariant;
-  $selected: boolean;
-  $range?: RangeVariant;
-  $withTodo?: boolean;
+  variant: DateVariant;
+  selected: boolean;
+  range?: RangeVariant;
+  withTodo?: boolean;
 }>`
   display: flex;
   justify-content: center;
@@ -63,17 +63,17 @@ export const Date = styled.div<{
     background-color: ${({ theme }) => theme.colors.border};
   }
 
-  ${({ $variant }) => variantStyles[$variant || DateVariant.DEFAULT]}
-  ${({ $range }) => ($range ? rangeStyles[$range] : '')}
+  ${({ variant }) => variantStyles[variant || DateVariant.DEFAULT]}
+  ${({ range }) => (range ? rangeStyles[range] : '')}
 
   ${(props) =>
-    props.$selected &&
+    props.selected &&
     css`
       background-color: ${({ theme }) => theme.colors.primary};
       color: ${({ theme }) => theme.colors.onPrimary};
     `}
     ${(props) =>
-    props.$withTodo &&
+    props.withTodo &&
     css`
       text-decoration: underline;
     `}

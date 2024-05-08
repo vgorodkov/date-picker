@@ -128,12 +128,12 @@ export const DateInput = ({
   };
 
   return (
-    <FlexContainer $flexFlow="column nowrap" $gap={spacing.s}>
+    <FlexContainer flexFlow="column nowrap" gap={spacing.s}>
       <InputLabel>{label}</InputLabel>
       <InputContainer
         data-testid={`${label}-input-container`}
-        $isSelected={isSelected}
-        $isDateValid={isDateValid}
+        isSelected={isSelected}
+        isDateValid={isDateValid}
         onClick={onClick}
       >
         <Icon src={calendarIcon} />

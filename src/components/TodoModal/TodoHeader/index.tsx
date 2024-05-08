@@ -9,7 +9,7 @@ export const TodoHeader = ({ selectedDate }: TodoHeaderProps) => {
   }
 
   return (
-    <FlexContainer $justifyContent="center">
+    <FlexContainer justifyContent="center">
       <h3>
         {zeroPad(selectedDate?.day, 2)}/{zeroPad(selectedDate?.month, 2)}/{selectedDate?.year}
       </h3>

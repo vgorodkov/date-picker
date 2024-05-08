@@ -65,7 +65,7 @@ export const Rangepicker = ({
   return (
     <Wrapper>
       <PickerContainer>
-        <FlexContainer $flexFlow="column nowrap" $gap={spacing.s}>
+        <FlexContainer flexFlow="column nowrap" gap={spacing.s}>
           <DateInput
             isDateValid={isRangeTimestampsValid}
             isSelected={rangeVariant === RangeVariant.START}

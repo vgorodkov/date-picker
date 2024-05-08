@@ -30,10 +30,10 @@ export const CalendarDate = ({
   return (
     <Date
       data-testid={getDateTestId()}
-      $withTodo={withTodo && isDateHasTodo(date as MonthDate, variant)}
-      $range={rangeVariant}
-      $variant={variant}
-      $selected={isSelected}
+      withTodo={withTodo && isDateHasTodo(date as MonthDate, variant)}
+      range={rangeVariant}
+      variant={variant}
+      selected={isSelected}
       onClick={handleDateClick}
     >
       {date.day}
