@@ -8,6 +8,7 @@ export interface PickerProps {
   firstDayOfWeek?: FirstWeekDay;
   showHolidays?: boolean;
   holidayTimestamps?: number[];
+  holidayColor?: string;
   addTodo?: (date: MonthDate) => void;
   calendarVariant?: CalendarVariant;
   selectedStartDate?: CalendarDate | null;
