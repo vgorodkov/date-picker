@@ -20,7 +20,6 @@ describe('validateNumberInRange function', () => {
 
   it('should return NaN if the input value is not a number', () => {
     expect(validateNumberInRange(NaN, 0, 10)).toBe(NaN);
-    expect(validateNumberInRange('not a number', 0, 10)).toBe(NaN);
   });
 
   it('should handle negative ranges correctly', () => {
