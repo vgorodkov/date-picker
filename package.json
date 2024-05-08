@@ -22,7 +22,6 @@
   ],
   "author": "",
   "license": "ISC",
-  "type": "module",
   "publishConfig": {
     "access": "public"
   },
