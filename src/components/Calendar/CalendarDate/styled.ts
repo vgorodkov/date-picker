@@ -56,7 +56,7 @@ export const Date = styled.div<{
   variant: DateVariant;
   selected: boolean;
   range?: RangeVariant;
-  withTodo?: boolean;
+  withTodo: boolean;
   holidayColor?: string;
 }>`
   display: flex;
