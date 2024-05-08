@@ -31,9 +31,7 @@ export const Modal = ({ isActive, closeModal, children }: ModalProps) => {
       role="button"
       tabIndex={0}
     >
-      <ModalContent $isActive={isActive} role="none" onClick={onModalClick}>
-        {children}
-      </ModalContent>
+      <ModalContent onClick={onModalClick}>{children}</ModalContent>
     </ModalContainer>
   );
 };
