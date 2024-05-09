@@ -6,7 +6,10 @@ interface CursorPosition {
 }
 
 export const useInputCursorSelection = (cursorRanges: CursorPosition[]) => {
-  const [cursor, setCursor] = useState<CursorPosition>({ start: 0, end: 0 });
+  const [inputCursorSelection, setInputCursorSelection] = useState<CursorPosition>({
+    start: 0,
+    end: 0,
+  });
 
   const onInputSelect = (e: ChangeEvent<HTMLInputElement>) => {
     const { selectionStart } = e.target;
@@ -19,9 +22,9 @@ export const useInputCursorSelection = (cursorRanges: CursorPosition[]) => {
     });
 
     if (newCursor) {
-      setCursor(newCursor);
+      setInputCursorSelection(newCursor);
     }
   };
 
-  return { cursor, onInputSelect };
+  return { inputCursorSelection, onInputSelect };
 };
