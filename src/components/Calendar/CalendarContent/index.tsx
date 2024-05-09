@@ -12,7 +12,7 @@ export const CalendarContent = ({
   selectedDate,
   range,
   showHolidays,
-  holidayTimestamps = [],
+  holidayTimestamps,
   holidayColor,
   dates,
   withTodo,

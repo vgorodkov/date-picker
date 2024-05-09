@@ -15,7 +15,7 @@ export const CalendarDate = ({
   holidayColor,
 }: DateProps) => {
   const handleDateClick = () => {
-    if (variant !== DateVariant.WEEKDAY && onDateClick) {
+    if (variant !== DateVariant.WEEKDAY) {
       onDateClick(date as MonthDate);
     }
   };

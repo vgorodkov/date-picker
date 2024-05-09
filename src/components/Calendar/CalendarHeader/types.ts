@@ -1,4 +1,4 @@
-import { FirstWeekDay } from '@/types/date';
+import { FirstWeekDay } from '@/types/picker';
 
 export interface CalendarHeaderProps {
   selectPrevPeriod: () => void;

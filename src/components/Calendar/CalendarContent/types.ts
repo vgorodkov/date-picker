@@ -3,11 +3,11 @@ import { Range } from '@/types/range';
 
 export interface CalendarContentProps {
   calendarMonth: number;
-  onDateClick?: (date: MonthDate) => void;
-  selectedDate?: MonthDate | null;
-  range?: Range;
-  showHolidays?: boolean;
-  holidayTimestamps?: number[];
+  onDateClick: (date: MonthDate) => void;
+  selectedDate: MonthDate | null;
+  range: Range;
+  showHolidays: boolean;
+  holidayTimestamps: number[];
   holidayColor?: string;
   dates: MonthDate[];
   withTodo: boolean;
