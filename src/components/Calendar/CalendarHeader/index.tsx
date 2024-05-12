@@ -34,12 +34,7 @@ export const CalendarHeader = ({
       </FlexContainer>
       <GridContainer>
         {weekDays.map((weekday) => (
-          <CalendarDate
-            withTodo={false}
-            variant={DateVariant.WEEKDAY}
-            date={{ day: weekday }}
-            key={weekday}
-          />
+          <CalendarDate variant={DateVariant.WEEKDAY} date={{ day: weekday }} key={weekday} />
         ))}
       </GridContainer>
     </FlexContainer>

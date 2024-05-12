@@ -11,11 +11,11 @@ export const CalendarDate = ({
   isSelected = false,
   onDateClick,
   rangeVariant,
-  withTodo,
+  withTodo = false,
   holidayColor,
 }: DateProps) => {
   const handleDateClick = () => {
-    if (variant !== DateVariant.WEEKDAY) {
+    if (onDateClick && variant !== DateVariant.WEEKDAY) {
       onDateClick(date as MonthDate);
     }
   };

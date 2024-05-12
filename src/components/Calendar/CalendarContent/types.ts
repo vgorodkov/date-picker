@@ -10,5 +10,5 @@ export interface CalendarContentProps {
   holidayTimestamps: number[];
   holidayColor?: string;
   dates: MonthDate[];
-  withTodo: boolean;
+  withTodo?: boolean;
 }
