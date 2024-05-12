@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const ModalContainer = styled.div<{ $isActive: boolean }>`
+export const ModalContainer = styled.div<{ isActive: boolean }>`
   height: 100vh;
   width: 100vw;
   background-color: #00000070;
@@ -11,8 +11,8 @@ export const ModalContainer = styled.div<{ $isActive: boolean }>`
   justify-content: center;
   align-items: center;
   z-index: 10;
-  pointer-events: ${(props) => (props.$isActive ? 'all' : 'none')};
-  opacity: ${(props) => (props.$isActive ? 1 : 0)};
+  pointer-events: ${(props) => (props.isActive ? 'all' : 'none')};
+  opacity: ${(props) => (props.isActive ? 1 : 0)};
   transition: 0.3s;
 `;
 

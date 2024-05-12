@@ -24,7 +24,7 @@ export const Modal = ({ isActive, closeModal, children }: ModalProps) => {
 
   return (
     <ModalContainer
-      $isActive={isActive}
+      isActive={isActive}
       ref={modalRef}
       onClick={closeModal}
       onKeyDown={onKeyDown}
