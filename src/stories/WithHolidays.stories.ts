@@ -12,6 +12,7 @@ const holidays = [
 const meta = {
   title: 'WithHolidays',
   component: withHolidays(Datepicker, holidays),
+
   parameters: {
     layout: 'centered',
   },
@@ -21,7 +22,5 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Basic: Story = {
-  args: {
-    calendarVariant: 'month',
-  },
+  args: {},
 };

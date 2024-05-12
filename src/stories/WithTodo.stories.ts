@@ -15,7 +15,5 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Basic: Story = {
-  args: {
-    calendarVariant: 'month',
-  },
+  args: {},
 };
