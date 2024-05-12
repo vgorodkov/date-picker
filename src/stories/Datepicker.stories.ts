@@ -106,6 +106,14 @@ export const WithHolidays: Story = {
   },
 };
 
+export const WithHolidaysDifferentColor: Story = {
+  name: 'With Weekends Highlighted In Different Color',
+  args: {
+    showHolidays: true,
+    holidayColor: 'blue',
+  },
+};
+
 export const WithWeekMode: Story = {
   name: 'With Week Mode',
   args: {
