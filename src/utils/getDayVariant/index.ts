@@ -5,12 +5,12 @@ export const getDayVariant = (
   date: MonthDate,
   calendarMonth: number,
   holidayTimestamps: number[],
-  showHolidays?: boolean
+  showHolidays: boolean
 ) => {
   const { timestamp, month } = date;
   const isSameMonth = month === calendarMonth;
 
-  if (showHolidays && timestamp) {
+  if (showHolidays) {
     const dayIndex = new Date(timestamp).getDay();
     const isStartOfWeek = dayIndex === 0;
     const isEndOfWeek = dayIndex === WEEK_DAYS.length - 1;
