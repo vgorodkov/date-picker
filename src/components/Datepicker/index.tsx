@@ -1,8 +1,9 @@
 import { useMemo, useState } from 'react';
 
+import { AppWrapper } from '@/components/AppWrapper';
 import { Calendar } from '@/components/Calendar';
 import { DateInput } from '@/components/DateInput';
-import { Wrapper } from '@/components/Wrapper';
+import { colors } from '@/constants/colors';
 import { DATE_MASK } from '@/constants/dates';
 import { PickerContainer, RelativeContainer } from '@/styles/containers';
 import { DateInputValue, MonthDate } from '@/types/date';
@@ -21,7 +22,7 @@ export const Datepicker = ({
   calendarVariant = 'month',
   selectedStartDate = null,
   dateLimit = DEFAULT_DATELIMIT,
-  holidayColor,
+  holidayColor = colors.holidayText,
 }: PickerProps) => {
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
   const [dateInput, setDateInput] = useState<DateInputValue>(selectedStartDate ?? DATE_MASK);
@@ -47,7 +48,7 @@ export const Datepicker = ({
   };
 
   return (
-    <Wrapper>
+    <AppWrapper>
       <PickerContainer>
         <DateInput
           isDateValid={isDateValid}
@@ -72,6 +73,6 @@ export const Datepicker = ({
           )}
         </RelativeContainer>
       </PickerContainer>
-    </Wrapper>
+    </AppWrapper>
   );
 };

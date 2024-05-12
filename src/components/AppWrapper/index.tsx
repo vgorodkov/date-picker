@@ -5,7 +5,7 @@ import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { theme } from '@/constants/theme';
 import { GlobalStyle } from '@/styles/global';
 
-export const Wrapper = ({ children }: { children: ReactNode }) => {
+export const AppWrapper = ({ children }: { children: ReactNode }) => {
   return (
     <>
       <GlobalStyle />

@@ -1,8 +1,8 @@
 import { FC, useState } from 'react';
 
+import { AppWrapper } from '@/components/AppWrapper';
 import { TodoModal } from '@/components/TodoModal';
 import { Modal } from '@/components/UI/Modal';
-import { Wrapper } from '@/components/Wrapper';
 import { MonthDate } from '@/types/date';
 import { PickerProps } from '@/types/picker';
 
@@ -22,11 +22,11 @@ export const withTodos = (WrappedComponent: FC<PickerProps>) => {
 
     return (
       <>
-        <Wrapper>
+        <AppWrapper>
           <Modal isActive={isModalActive} closeModal={closeModal}>
             {selectedDate && <TodoModal selectedDate={selectedDate} />}
           </Modal>
-        </Wrapper>
+        </AppWrapper>
         <WrappedComponent {...props} addTodo={addTodo} />
       </>
     );

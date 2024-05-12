@@ -1,8 +1,8 @@
 import { useMemo, useState } from 'react';
 
+import { AppWrapper } from '@/components/AppWrapper';
 import { Calendar } from '@/components/Calendar';
 import { DateInput } from '@/components/DateInput';
-import { Wrapper } from '@/components/Wrapper';
 import { DATE_MASK } from '@/constants/dates';
 import { spacing } from '@/constants/spacing';
 import { FlexContainer, PickerContainer, RelativeContainer } from '@/styles/containers';
@@ -64,7 +64,7 @@ export const Rangepicker = ({
   };
 
   return (
-    <Wrapper>
+    <AppWrapper>
       <PickerContainer>
         <FlexContainer flexFlow="column nowrap" gap={spacing.s}>
           <DateInput
@@ -99,6 +99,6 @@ export const Rangepicker = ({
           )}
         </RelativeContainer>
       </PickerContainer>
-    </Wrapper>
+    </AppWrapper>
   );
 };
