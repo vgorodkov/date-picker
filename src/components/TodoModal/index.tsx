@@ -4,7 +4,7 @@ import { Input } from '@/components/UI';
 import { colors } from '@/constants/colors';
 import { DEFAULT_DAY_WITH_TIMESTAMP } from '@/constants/dates';
 import { spacing } from '@/constants/spacing';
-import { useTodosFromStorageByDate } from '@/hooks/useTodosFromStorageByDate';
+import { useStickyState } from '@/hooks/useStickyState';
 import { Button } from '@/styles/button';
 import { FlexContainer } from '@/styles/containers';
 
@@ -15,9 +15,9 @@ import { TodoList } from './TodoList';
 import { TodoModalProps } from './types';
 
 export const TodoModal = ({ selectedDate = DEFAULT_DAY_WITH_TIMESTAMP }: TodoModalProps) => {
+  const storageKey = `${selectedDate.day}-${selectedDate.month}-${selectedDate.year}`;
   const [todoQuery, setTodoQuery] = useState<string>('');
-
-  const { todos, addTodo, clearTodos } = useTodosFromStorageByDate(selectedDate);
+  const [todos, setTodos] = useStickyState<string[]>(storageKey, []);
 
   const onTodoInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
@@ -26,9 +26,13 @@ export const TodoModal = ({ selectedDate = DEFAULT_DAY_WITH_TIMESTAMP }: TodoMod
 
   const saveTodo = () => {
     if (todoQuery.length > 0) {
-      addTodo(todoQuery);
+      setTodos([...todos, todoQuery]);
       setTodoQuery('');
     }
+  };
+
+  const clearTodos = () => {
+    setTodos([]);
   };
 
   return (
