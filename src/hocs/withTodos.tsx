@@ -19,12 +19,11 @@ export const withTodos = (WrappedComponent: FC<PickerProps>) => {
     const closeModal = () => {
       setIsModalActive(false);
     };
-
     return (
       <>
         <AppWrapper>
           <Modal isActive={isModalActive} closeModal={closeModal}>
-            {selectedDate && <TodoModal selectedDate={selectedDate} />}
+            {selectedDate && <TodoModal selectedDate={selectedDate} key={selectedDate.timestamp} />}
           </Modal>
         </AppWrapper>
         <WrappedComponent {...props} addTodo={addTodo} />
