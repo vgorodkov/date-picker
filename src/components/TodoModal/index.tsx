@@ -15,7 +15,8 @@ import { TodoList } from './TodoList';
 import { TodoModalProps } from './types';
 
 export const TodoModal = ({ selectedDate = DEFAULT_DAY_WITH_TIMESTAMP }: TodoModalProps) => {
-  const storageKey = `${selectedDate.day}-${selectedDate.month}-${selectedDate.year}`;
+  const { day, month, year } = selectedDate;
+  const storageKey = `${day}-${month}-${year}`;
   const [todoQuery, setTodoQuery] = useState<string>('');
   const [todos, setTodos] = useStickyState<string[]>(storageKey, []);
 
