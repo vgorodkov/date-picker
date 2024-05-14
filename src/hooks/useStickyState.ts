@@ -9,15 +9,15 @@ export const useStickyState = <T>(
     return stickyValue !== null ? JSON.parse(stickyValue) : initialValue;
   });
 
-  const isArray = Array.isArray(value);
-
   useEffect(() => {
-    if (!value || (isArray && value.length < 1)) {
+    const isValueArray = Array.isArray(value);
+
+    if (!value || (isValueArray && value.length < 1)) {
       localStorage.removeItem(key);
     } else {
       localStorage.setItem(key, JSON.stringify(value));
     }
-  }, [key, value, isArray]);
+  }, [key, value]);
 
   return [value, setValue];
 };
