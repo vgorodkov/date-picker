@@ -6,7 +6,7 @@ import { DateInput } from '@/components/DateInput';
 import { colors } from '@/constants/colors';
 import { DATE_MASK } from '@/constants/dates';
 import { PickerContainer, RelativeContainer } from '@/styles/containers';
-import { DateInputValue, MonthDate } from '@/types/date';
+import { CalendarDate, DateInputValue, MonthDate } from '@/types/date';
 import { PickerProps } from '@/types/picker';
 import { isDateInRangeLimit } from '@/utils/isDateInRangeLimit';
 import { isInputMaskified } from '@/utils/isInputMaskified';
@@ -31,7 +31,7 @@ export const Datepicker = ({
     if (isInputMaskified(dateInput)) {
       return false;
     }
-    return isDateInRangeLimit(transformDateInputToMonthDate(dateInput), dateLimit);
+    return isDateInRangeLimit(dateInput as CalendarDate, dateLimit);
   }, [dateInput, dateLimit]);
 
   const onDateClick = (selectedDate: MonthDate) => {
