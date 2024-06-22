@@ -13,13 +13,17 @@ describe('DatepickerWithHolidays component', () => {
     expect(await screen.findByText(/date/i)).toBeInTheDocument();
   });
   it('highlights defined holidays', async () => {
-    const holidays = [{ day: 1, month: 5, year: 2024 }];
+    const today = new Date();
+    const dayToHighlight = 5;
+    const currentMonth = today.getMonth() + 1;
+    const currentYear = today.getFullYear();
+    const holidays = [{ day: dayToHighlight, month: currentMonth, year: currentYear }];
     const DatepickerWithHolidays = withHolidays(Datepicker, holidays);
     const { getByTestId } = render(<DatepickerWithHolidays calendarVariant="month" />);
     const dateInputContainer = getByTestId('Date-input-container');
     fireEvent.click(dateInputContainer);
     await waitFor(() => {
-      const firstDate = getByTestId(`calendar-date-1-5`);
+      const firstDate = getByTestId(`calendar-date-${dayToHighlight}-${currentMonth}`);
       expect(firstDate).toHaveStyle(`color: ${colors.holidayText}`);
     });
   });
