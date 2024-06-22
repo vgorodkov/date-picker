@@ -1,9 +1,12 @@
-import typescript from '@rollup/plugin-typescript';
-import postcss from 'rollup-plugin-postcss';
-import resolve from '@rollup/plugin-node-resolve';
+import alias from '@rollup/plugin-alias';
 import commonjs from '@rollup/plugin-commonjs';
-import dts from 'rollup-plugin-dts';
+import image from '@rollup/plugin-image';
+import resolve from '@rollup/plugin-node-resolve';
 import terser from '@rollup/plugin-terser';
+import typescript from '@rollup/plugin-typescript';
+import url from '@rollup/plugin-url';
+import path from 'path';
+import dts from 'rollup-plugin-dts';
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 
 const packageJson = require('./package.json');
@@ -19,16 +22,21 @@ export default [
       },
     ],
     plugins: [
-      typescript(),
+      typescript({
+        exclude: ['**/__stories__', '**/*.stories.ts', '**/*.test.ts', '**/*.test.tsx'],
+      }),
       peerDepsExternal(),
       resolve(),
       commonjs(),
       terser(),
-      postcss({
-        extract: false,
-        modules: true,
-        minimize: true,
-        use: ['sass'],
+      image(),
+      alias({
+        entries: [{ find: '@', replacement: path.resolve('./src') }],
+      }),
+      url({
+        include: ['**/*.woff', '**/*.woff2', '**/*.ttf'],
+        limit: Infinity,
+        fileName: '[dirname][name][extname]',
       }),
     ],
   },
@@ -36,6 +44,6 @@ export default [
     input: 'dist/cjs/types/src/index.d.ts',
     output: [{ file: 'dist/index.d.ts', format: 'esm' }],
     plugins: [dts.default()],
-    external: [/\.(css|scss)$/],
+    external: [/\.(css)$/],
   },
 ];

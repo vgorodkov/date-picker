@@ -17,6 +17,11 @@
     "strict": true,
     "resolveJsonModule": true,
     "noImplicitAny": true,
-    "emitDeclarationOnly": true
+    "emitDeclarationOnly": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+    "types": ["jest"]
   }
 }

@@ -1,1 +1,3 @@
-export * from './components/Button/Button';
+export * from './components';
+export * from './hocs';
+export * from './services';
