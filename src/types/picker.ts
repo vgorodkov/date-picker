@@ -1,4 +1,4 @@
-import { DateLimit, MonthDate } from '@/types/date';
+import { CalendarDate, DateLimit, MonthDate } from '@/types/date';
 
 export type CalendarVariant = 'week' | 'month';
 
@@ -8,8 +8,9 @@ export interface PickerProps {
   firstDayOfWeek?: FirstWeekDay;
   showHolidays?: boolean;
   holidayTimestamps?: number[];
+  holidayColor?: string;
   addTodo?: (date: MonthDate) => void;
-  calendarVariant: CalendarVariant;
-  selectedStartDate?: MonthDate | null;
+  calendarVariant?: CalendarVariant;
+  selectedStartDate?: CalendarDate | null;
   dateLimit?: DateLimit;
 }

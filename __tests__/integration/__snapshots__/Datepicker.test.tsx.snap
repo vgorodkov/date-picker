@@ -6,27 +6,28 @@ exports[`Datepicker component matches the snapshot 1`] = `
   "baseElement": <body>
     <div>
       <div
-        class="sc-brSamD lkhJJH"
+        class="sc-eDLKkx iIGyiZ"
       >
         <div
           class="sc-guDLey bAKPwX"
+          flexflow="column nowrap"
+          gap="8px"
         >
           <div
-            class="sc-irLvIq hRirRs"
+            class="sc-qZrbh dCuewT"
           >
             Date
           </div>
           <div
-            class="sc-csKJxZ QgEb"
+            class="sc-jsEeTM bOsTEI"
             data-testid="Date-input-container"
           >
             <img
-              alt="icon"
-              class="sc-eDLKkx dPiLA-d"
+              class="sc-jTQCzO iYVWsV"
               src="[object Object]"
             />
             <input
-              class="sc-eTNRI dlgWXo"
+              class="sc-kFCroH fKARsL"
               data-testid="date-input"
               placeholder="Select date"
               readonly=""
@@ -34,8 +35,7 @@ exports[`Datepicker component matches the snapshot 1`] = `
               value="DD/MM/YYYY"
             />
             <img
-              alt="icon"
-              class="sc-eDLKkx dPiLA-d"
+              class="sc-jTQCzO iYVWsV"
               src="[object Object]"
             />
           </div>
@@ -48,27 +48,28 @@ exports[`Datepicker component matches the snapshot 1`] = `
   </body>,
   "container": <div>
     <div
-      class="sc-brSamD lkhJJH"
+      class="sc-eDLKkx iIGyiZ"
     >
       <div
         class="sc-guDLey bAKPwX"
+        flexflow="column nowrap"
+        gap="8px"
       >
         <div
-          class="sc-irLvIq hRirRs"
+          class="sc-qZrbh dCuewT"
         >
           Date
         </div>
         <div
-          class="sc-csKJxZ QgEb"
+          class="sc-jsEeTM bOsTEI"
           data-testid="Date-input-container"
         >
           <img
-            alt="icon"
-            class="sc-eDLKkx dPiLA-d"
+            class="sc-jTQCzO iYVWsV"
             src="[object Object]"
           />
           <input
-            class="sc-eTNRI dlgWXo"
+            class="sc-kFCroH fKARsL"
             data-testid="date-input"
             placeholder="Select date"
             readonly=""
@@ -76,8 +77,7 @@ exports[`Datepicker component matches the snapshot 1`] = `
             value="DD/MM/YYYY"
           />
           <img
-            alt="icon"
-            class="sc-eDLKkx dPiLA-d"
+            class="sc-jTQCzO iYVWsV"
             src="[object Object]"
           />
         </div>

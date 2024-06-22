@@ -24,16 +24,14 @@ export const Modal = ({ isActive, closeModal, children }: ModalProps) => {
 
   return (
     <ModalContainer
-      $isActive={isActive}
+      isActive={isActive}
       ref={modalRef}
       onClick={closeModal}
       onKeyDown={onKeyDown}
       role="button"
       tabIndex={0}
     >
-      <ModalContent $isActive={isActive} role="none" onClick={onModalClick}>
-        {children}
-      </ModalContent>
+      <ModalContent onClick={onModalClick}>{children}</ModalContent>
     </ModalContainer>
   );
 };

@@ -1,11 +1,12 @@
 import { useMemo, useState } from 'react';
 
+import { AppWrapper } from '@/components/AppWrapper';
 import { Calendar } from '@/components/Calendar';
 import { DateInput } from '@/components/DateInput';
-import { PickerWrapper } from '@/components/PickerWrapper';
+import { colors } from '@/constants/colors';
 import { DATE_MASK } from '@/constants/dates';
-import { RelativeContainer } from '@/styles/common';
-import { DateInputValue, MonthDate } from '@/types/date';
+import { PickerContainer, RelativeContainer } from '@/styles/containers';
+import { CalendarDate, DateInputValue, MonthDate } from '@/types/date';
 import { PickerProps } from '@/types/picker';
 import { isDateInRangeLimit } from '@/utils/isDateInRangeLimit';
 import { isInputMaskified } from '@/utils/isInputMaskified';
@@ -14,13 +15,14 @@ import { transformDateInputToMonthDate } from '@/utils/transformDateInputToMonth
 import { DEFAULT_DATELIMIT } from './constants';
 
 export const Datepicker = ({
-  firstDayOfWeek,
-  showHolidays,
-  holidayTimestamps,
+  firstDayOfWeek = 'Mo',
+  showHolidays = false,
+  holidayTimestamps = [],
   addTodo,
-  calendarVariant,
+  calendarVariant = 'month',
   selectedStartDate = null,
   dateLimit = DEFAULT_DATELIMIT,
+  holidayColor = colors.holidayText,
 }: PickerProps) => {
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
   const [dateInput, setDateInput] = useState<DateInputValue>(selectedStartDate ?? DATE_MASK);
@@ -29,7 +31,7 @@ export const Datepicker = ({
     if (isInputMaskified(dateInput)) {
       return false;
     }
-    return isDateInRangeLimit(transformDateInputToMonthDate(dateInput), dateLimit);
+    return isDateInRangeLimit(dateInput as CalendarDate, dateLimit);
   }, [dateInput, dateLimit]);
 
   const onDateClick = (selectedDate: MonthDate) => {
@@ -46,28 +48,31 @@ export const Datepicker = ({
   };
 
   return (
-    <PickerWrapper>
-      <DateInput
-        isDateValid={isDateValid}
-        isSelected={isCalendarOpen}
-        label="Date"
-        onClick={openCalendar}
-        value={dateInput}
-        setValue={setDateInput}
-      />
-      <RelativeContainer>
-        {isCalendarOpen && (
-          <Calendar
-            withTodo={!!addTodo}
-            firstDayOfWeek={firstDayOfWeek}
-            selectedDate={isDateValid ? transformDateInputToMonthDate(dateInput) : null}
-            onDateClick={onDateClick}
-            showHolidays={showHolidays}
-            holidayTimestamps={holidayTimestamps}
-            calendarVariant={calendarVariant}
-          />
-        )}
-      </RelativeContainer>
-    </PickerWrapper>
+    <AppWrapper>
+      <PickerContainer>
+        <DateInput
+          isDateValid={isDateValid}
+          isSelected={isCalendarOpen}
+          label="Date"
+          onClick={openCalendar}
+          value={dateInput}
+          setValue={setDateInput}
+        />
+        <RelativeContainer>
+          {isCalendarOpen && (
+            <Calendar
+              withTodo={!!addTodo}
+              firstDayOfWeek={firstDayOfWeek}
+              selectedDate={isDateValid ? transformDateInputToMonthDate(dateInput) : null}
+              onDateClick={onDateClick}
+              showHolidays={showHolidays}
+              holidayTimestamps={holidayTimestamps}
+              holidayColor={holidayColor}
+              calendarVariant={calendarVariant}
+            />
+          )}
+        </RelativeContainer>
+      </PickerContainer>
+    </AppWrapper>
   );
 };

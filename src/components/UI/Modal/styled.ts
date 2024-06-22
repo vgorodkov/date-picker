@@ -1,8 +1,6 @@
 import styled from 'styled-components';
 
-import { spacing } from '@/constants/spacing';
-
-export const ModalContainer = styled.div<{ $isActive: boolean }>`
+export const ModalContainer = styled.div<{ isActive: boolean }>`
   height: 100vh;
   width: 100vw;
   background-color: #00000070;
@@ -13,13 +11,13 @@ export const ModalContainer = styled.div<{ $isActive: boolean }>`
   justify-content: center;
   align-items: center;
   z-index: 10;
-  pointer-events: ${(props) => (props.$isActive ? 'all' : 'none')};
-  opacity: ${(props) => (props.$isActive ? 1 : 0)};
+  pointer-events: ${(props) => (props.isActive ? 'all' : 'none')};
+  opacity: ${(props) => (props.isActive ? 1 : 0)};
   transition: 0.3s;
 `;
 
-export const ModalContent = styled.div<{ $isActive: boolean }>`
-  padding: ${spacing.m} ${spacing.l};
+export const ModalContent = styled.div`
+  padding: ${({ theme }) => theme.spacing.m} ${({ theme }) => theme.spacing.l};
   border-radius: 8px;
   background-color: white;
   display: flex;

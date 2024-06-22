@@ -18,6 +18,7 @@ export const Calendar = ({
   },
   showHolidays = false,
   holidayTimestamps = [],
+  holidayColor,
   calendarVariant = 'month',
   withTodo = false,
 }: CalendarProps) => {
@@ -47,6 +48,7 @@ export const Calendar = ({
         range={range}
         showHolidays={showHolidays}
         holidayTimestamps={holidayTimestamps}
+        holidayColor={holidayColor}
         withTodo={withTodo}
       />
     </CalendarContainer>

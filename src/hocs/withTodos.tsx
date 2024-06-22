@@ -1,5 +1,6 @@
 import { FC, useState } from 'react';
 
+import { AppWrapper } from '@/components/AppWrapper';
 import { TodoModal } from '@/components/TodoModal';
 import { Modal } from '@/components/UI/Modal';
 import { MonthDate } from '@/types/date';
@@ -18,12 +19,13 @@ export const withTodos = (WrappedComponent: FC<PickerProps>) => {
     const closeModal = () => {
       setIsModalActive(false);
     };
-
     return (
       <>
-        <Modal isActive={isModalActive} closeModal={closeModal}>
-          {selectedDate && <TodoModal selectedDate={selectedDate} />}
-        </Modal>
+        <AppWrapper>
+          <Modal isActive={isModalActive} closeModal={closeModal}>
+            {selectedDate && <TodoModal selectedDate={selectedDate} key={selectedDate.timestamp} />}
+          </Modal>
+        </AppWrapper>
         <WrappedComponent {...props} addTodo={addTodo} />
       </>
     );

@@ -1,8 +1,8 @@
 import { CalendarDate } from '@/components/Calendar/CalendarDate';
-import { WEEK_DAYS } from '@/constants/dates';
-import { GridContainer } from '@/styles/common';
-import { DateVariant, MonthDate } from '@/types/date';
-import { RangeVariant } from '@/types/range';
+import { GridContainer } from '@/styles/containers';
+import { getDayVariant } from '@/utils/getDayVariant';
+import { getRangeVariant } from '@/utils/getRangeVariant';
+import { isDateSelected } from '@/utils/isDateSelected';
 
 import { CalendarContentProps } from './types';
 
@@ -12,57 +12,23 @@ export const CalendarContent = ({
   selectedDate,
   range,
   showHolidays,
-  holidayTimestamps = [],
+  holidayTimestamps,
+  holidayColor,
   dates,
   withTodo,
 }: CalendarContentProps) => {
-  const isDateSelected = (date: MonthDate) => {
-    if (selectedDate) {
-      return date.timestamp === selectedDate.timestamp;
-    }
-    return false;
-  };
-
-  const getRangeVariant = (date: MonthDate) => {
-    if (!range) return undefined;
-
-    const { start, end } = range;
-    const { timestamp } = date;
-
-    if (timestamp === start) return RangeVariant.START;
-    if (timestamp === end) return RangeVariant.END;
-    if (start && end && timestamp > start && timestamp < end) return RangeVariant.INBETWEEN;
-
-    return undefined;
-  };
-
-  const getDayVariant = (date: MonthDate) => {
-    const { timestamp, month } = date;
-    const isSameMonth = month === calendarMonth;
-
-    if (showHolidays && timestamp) {
-      const dayIndex = new Date(timestamp).getDay();
-      const isStartOfWeek = dayIndex === 0;
-      const isEndOfWeek = dayIndex === WEEK_DAYS.length - 1;
-      if (holidayTimestamps.includes(timestamp) || isStartOfWeek || isEndOfWeek) {
-        return isSameMonth ? DateVariant.HOLIDAY : DateVariant.DISABLED_HOLIDAY;
-      }
-    }
-
-    return isSameMonth ? DateVariant.DEFAULT : DateVariant.DISABLED;
-  };
-
   return (
     <GridContainer data-testid="calendar-content">
       {dates.map((date, index) => (
         <CalendarDate
+          holidayColor={holidayColor}
           data-testid={`calendar-date-${index}`}
           withTodo={withTodo}
           onDateClick={onDateClick}
-          isSelected={isDateSelected(date)}
+          isSelected={isDateSelected(date, selectedDate)}
           date={date}
-          variant={getDayVariant(date)}
-          rangeVariant={getRangeVariant(date)}
+          variant={getDayVariant(date, calendarMonth, holidayTimestamps, showHolidays)}
+          rangeVariant={getRangeVariant(date, range)}
           key={date.timestamp}
         />
       ))}

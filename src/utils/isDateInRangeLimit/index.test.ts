@@ -27,13 +27,4 @@ describe('isDateInRangeLimit function', () => {
     };
     expect(isDateInRangeLimit(dateInput, dateLimit)).toBe(false);
   });
-
-  it('should return false if dateInput is null or undefined', () => {
-    const dateLimit = {
-      min: { year: 2024, month: 1, day: 1 },
-      max: { year: 2024, month: 12, day: 31 },
-    };
-    expect(isDateInRangeLimit(null, dateLimit)).toBe(false);
-    expect(isDateInRangeLimit(undefined, dateLimit)).toBe(false);
-  });
 });

@@ -3,9 +3,9 @@ import { useMemo } from 'react';
 import nextSvg from '@/assets/icons/next.svg';
 import prevSvg from '@/assets/icons/prev.svg';
 import { CalendarDate } from '@/components/Calendar/CalendarDate';
-import { Icon } from '@/components/UI/Icon';
 import { spacing } from '@/constants/spacing';
-import { FlexContainer, GridContainer } from '@/styles/common';
+import { FlexContainer, GridContainer } from '@/styles/containers';
+import { Icon } from '@/styles/icon';
 import { DateVariant } from '@/types/date';
 import { getWeekDays } from '@/utils/getWeekDays';
 
@@ -24,8 +24,8 @@ export const CalendarHeader = ({
   }, [firstDayOfWeek]);
 
   return (
-    <FlexContainer $flexFlow="column nowrap" $alignItems="space-between" $gap={spacing.xs}>
-      <FlexContainer $justifyContent="space-between">
+    <FlexContainer flexFlow="column nowrap" alignItems="space-between" gap={spacing.xs}>
+      <FlexContainer justifyContent="space-between">
         <Icon onClick={selectPrevPeriod} src={prevSvg} alt="prev" title="prev month" />
         <DatepickerTitle>
           {calendarMonthName} {calendarYear}
@@ -34,12 +34,7 @@ export const CalendarHeader = ({
       </FlexContainer>
       <GridContainer>
         {weekDays.map((weekday) => (
-          <CalendarDate
-            withTodo={false}
-            variant={DateVariant.WEEKDAY}
-            date={{ day: weekday }}
-            key={weekday}
-          />
+          <CalendarDate variant={DateVariant.WEEKDAY} date={{ day: weekday }} key={weekday} />
         ))}
       </GridContainer>
     </FlexContainer>
