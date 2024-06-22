@@ -15,7 +15,8 @@
     "prepare": "husky",
     "test": "jest",
     "test:unit": "jest --testPathPattern=src/utils",
-    "test:integration": "jest --testPathPattern=__tests__"
+    "test:integration": "jest --testPathPattern=__tests__",
+    "chromatic": "npx chromatic --project-token=chpt_bd00c9521964097"
   },
   "keywords": [
     "date-picker"
@@ -57,6 +58,7 @@
     "@typescript-eslint/eslint-plugin": "^7.4.0",
     "@typescript-eslint/parser": "^7.4.0",
     "babel-jest": "^29.7.0",
+    "chromatic": "^11.5.4",
     "eslint": "^8.2.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-airbnb-typescript": "^18.0.0",
