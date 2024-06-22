@@ -2,13 +2,26 @@
 
 A library to work with calendar
 
+## Features
+
+- Datepicker.
+- Rangepicker.
+- Holidays highlighting.
+- Week / Month display mode.
+- Task adding on date press.
+- Date limit.
+- Service for datepicker creation.
+
 ## Installation
 
-Install with npm
-
 ```bash
-npm install @vgorodkov/date-picker
+git clone https://github.com/vgorodkov/date-picker.git
+cd date-picker
+npm install # or any other installation command
 ```
+
+## Deploy
+Storybook deploy on Chromatic: https://6676ced84d31efe4c7e8dac6-rextkngxsn.chromatic.com/?path=/story/datepicker--basic
 
 ## Usage/Examples
 
@@ -19,8 +32,10 @@ import { DatepickerService, withHolidays, withTodos } from '@vgorodkov/date-pick
 
 function App() {
   const datepickerService = new DatepickerService();
+
   datepickerService.addDecorator(withTodos);
   datepickerService.addDecorator(withHolidays, [{ day: 3, month: 5, year: 2024 }]);
+
   const Datepicker = datepickerService.createDatepicker();
 
   return <Datepicker />;
@@ -78,6 +93,7 @@ import { RangepickerService } from '@vgorodkov/date-picker';
 
 function App() {
   const rangepickerService = new RangepickerService();
+
   const Rangepicker = rangepickerService.createRangepicker();
 
   return <Rangepicker />;
